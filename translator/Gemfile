@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
 source "https://rubygems.org"
 
@@ -9,3 +9,5 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gem "asciidoctor", "~> 1.5"
 
 gem "pry", "~> 0.12.2"
+
+gem "awesome_print", "~> 1.8"

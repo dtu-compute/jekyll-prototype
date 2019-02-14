@@ -105,10 +105,29 @@ end
 
 doc = Asciidoctor.load_file source_file, safe: :unsafe, parse: false, attributes: doc.attributes
 
+
+#lines = doc.reader.readlines
+
+lines = []
+lines = File.readlines(source_file).map { |line| line }
+
 #
-# process math
+# Process Comments
 #
-lines = doc.reader.readlines.map do |line|
+
+lines = lines.map{ |line| if line.start_with? '%' then ("// " + line[1..-1]) else line end }
+
+#
+# Process Podcast links
+#
+# TODO
+
+#
+# Process math
+# AsciiDoc and AsciiDoctor differ in how they specify latexmath, so we have to convert.
+# http://discuss.asciidoctor.org/mathjax-and-latexmath-support-differences-to-Asciidoc-td3159.html)
+#
+lines = lines.map do |line|
   if line.include? 'latexmath'
     line = line.gsub(%r{latexmath:\[\$((?:(?!\$\]).)+)\$\]}, 'latexmath:[\1]')
     m = line.match(%r{latexmath:\[\\\[((?:(?!\\\]).)+)\\\]})
@@ -139,6 +158,9 @@ lines = lines.map do |line|
   line
 end.flatten
 
+#
+# Process question/hint/answer blocks
+#
 directive_stack = []
 lines = lines.each_with_index.map do |line, lineno|
   m = line.match(%r{=== (begin|end):(question|hint|answer)})
@@ -156,7 +178,7 @@ lines = lines.each_with_index.map do |line, lineno|
         if s[:kind] != kind
           puts "ERROR: unmatched #{kind} at #{lineno}; begin #{s[:kind]} on #{s[:lineno]}"
         else
-          next ["[#{kind}]","----"] + s[:content] + ["----"]
+          next ["[#{kind}]","....."] + s[:content] + ["....."]
         end
       end
     end
@@ -169,7 +191,7 @@ lines = lines.each_with_index.map do |line, lineno|
     end
   end
   line
-end.reject(&:nil?).flatten!
+end.reject(&:nil?).flatten
 
 if output_file == '-'
   puts lines
