@@ -120,7 +120,13 @@ lines = lines.map{ |line| if line.start_with? '%' then ("// " + line[1..-1]) els
 #
 # Process Podcast links
 #
-# TODO
+lines = lines.map do |line|
+#  line.gsub(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!$&'()*+,;=]+\[Podcast link\]$/) do |match_str|
+    line.gsub(/(?:http(s)?:\/\/)?[^ ]+\[Podcastlink\]/) do |match_str|
+    match_str.gsub!('[Podcastlink]', '')
+    "podcast::#{match_str}[]"
+  end
+end
 
 #
 # Process math

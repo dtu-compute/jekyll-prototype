@@ -136,7 +136,27 @@ class QuestionHintAnswerTreeprocessor < Extensions::Treeprocessor
   end
 end
 
+class PodcastBlockMacro < Extensions::BlockMacroProcessor
+  use_dsl
+
+  named :podcast
+
+  def process parent, target, attrs
+#    title_html = (attrs.has_key? 'title') ?
+#                     %(<div class="title">#{attrs['title']}</div>\n) : nil
+
+    html = %(<div class="openblock podcast">
+<pre>#{target}</pre>
+</div>)
+
+    create_pass_block parent, html, attrs, subs: nil
+  end
+end
+
 Extensions.register(:qha) {
+  # TODO: move this to its own file
+  block_macro PodcastBlockMacro
+
   tree_processor QuestionHintAnswerTreeprocessor
 
   %i[question hint answer].each do |el_type|

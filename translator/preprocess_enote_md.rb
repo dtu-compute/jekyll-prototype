@@ -43,6 +43,6 @@ IO.foreach(source_file) do |line|
 
     puts "\n"
   else
-    puts line
+    puts line.gsub('[Podcast link]', '[Podcastlink]')
   end
 end
