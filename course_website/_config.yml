@@ -47,8 +47,12 @@ sass:
 # exclude:
 #   - Gemfile
 #   - Gemfile.lock
+#   - package.json
+#   - package.lock
 #   - node_modules
 #   - vendor/bundle/
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+#   - webpack/
+#   - webpack.config.js

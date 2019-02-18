@@ -1,6 +1,7 @@
 ---
 ---
 @import 'tango_palette.scss';
+@import 'bs';
 
 // Place all the styles related to the exercise controller here.
 // They will automatically be included in application.css.
@@ -40,14 +41,20 @@
   margin: 10px 0 10px 0;
   width: 100%;
 }
-.question > .content,
-.answer > .content,
-.hint > .content {
-  display:table-cell;
-  padding: 10px 10px 0 10px;
-  margin: auto 0;
-  vertical-align: middle;
-  width: 100%;
+.question,
+.answer ,
+.hint {
+  > .content {
+    display: table-cell;
+    padding: 10px 10px 0 10px;
+    margin: auto 0;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  > .btn {
+    display: none;
+  }
 }
 
 .question, .hint, .answer {
@@ -82,6 +89,37 @@
     left: 14px;
     transform:  translateX(-50%) translateY(-50%) rotate(0deg);
   }
+}
+
+.answer.qha-content-hidden,
+.hint.qha-content-hidden
+{
+  background-color: unset;
+  border: unset;
+
+  > .title,
+  > .content {
+    display: none;
+  }
+
+  > .btn {
+    text-align: center;
+    display: block;
+    color: white;
+    margin: 0 auto;
+  }
+}
+
+.hide-dependent
+{
+  display: none;
+}
+
+
+.answer.qha-hidden > button,
+.hint.qha-hidden > button
+{
+  display: block !important;
 }
 
 .question {
@@ -121,10 +159,8 @@
 .btn-hint:active,
 .btn-hint:visited,
 .btn-hint:focus {
-  /*
   background-color: $sky-blue;
   border-color: $sky-blue-dark;
-   */
 }
 
 .btn-answer,
@@ -132,10 +168,8 @@
 .btn-answer:active,
 .btn-answer:visited,
 .btn-answer:focus {
-  /*
   background-color: $chameleon;
   border-color: $chameleon-dark;
-   */
 }
 
 
@@ -145,10 +179,6 @@
     height: 100px;
     min-height: 100px;
   }
-}
-
-.btn-hidden-directive {
-  margin: 10px auto;
 }
 
 @media print {
