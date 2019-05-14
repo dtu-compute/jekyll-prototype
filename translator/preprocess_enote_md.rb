@@ -16,12 +16,36 @@ unless (source_file = ARGV.shift)
   exit 1
 end
 
-IO.foreach(source_file) do |line|
+def process_multiline_latex(line)
+  if line.length <= 3
+    puts line
+    return
+  end
 
+  if line.start_with?("$$")
+    puts "$$\n"
+    line = line[2..0]
+  end
+
+  if line.end_with?("$$\n")
+    stripped_line = line[0..-4]
+    puts stripped_line
+    puts "$$"
+  else
+    puts line
+  end
+end
+
+def strip_html(line)
+  line.gsub!(%r/<\\?[a-z]+[^>]*>/,'')
+  line.gsub(%r/<\/?[a-z]+[^>]*>/,'')
+end
+
+IO.foreach(source_file) do |line, line_no|
   # Add extra line after comment line so pandoc will create a separation and not try to join
   # the two consecutive lines
   if line.start_with? '%'
-    stripped_line = line[1..-1]
+    stripped_line = strip_html line[1..-1]
     line_length = 0
     words = []
 
@@ -43,6 +67,7 @@ IO.foreach(source_file) do |line|
 
     puts "\n"
   else
-    puts line.gsub('[Podcast link]', '[Podcastlink]')
+    line = strip_html(line)
+    puts line.gsub('[Podcast link]', '[Podcastlink]').strip
   end
 end

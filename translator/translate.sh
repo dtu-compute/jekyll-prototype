@@ -1,9 +1,16 @@
 #!/bin/bash
+
 # bulk translate from 2018 Markdown style pages to 2019 asciidoc+enote extensions
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-find ./website-raw/01005 -iname '*.md' -print | while read pathname; do
+rm ./course_website/_pages/*
+
+COURSE=${1:-01005}
+COURSE=${1:-00000}
+
+
+find ${DTU_ENOTE_VOL}/content/${COURSE}/pages -iname '*.md' -print | while read pathname; do
 	filename=$(basename $pathname .md)
 	echo "Processing file '$filename'"
 
@@ -30,3 +37,5 @@ EOF
 	rm $filename.adoc
 	rm $filename.adoc+enote
 done
+
+cp -R ${DTU_ENOTE_VOL}/content/${COURSE}/uploads ./course_website/uploads

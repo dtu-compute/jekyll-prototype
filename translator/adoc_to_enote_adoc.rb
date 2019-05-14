@@ -133,20 +133,33 @@ end
 # AsciiDoc and AsciiDoctor differ in how they specify latexmath, so we have to convert.
 # http://discuss.asciidoctor.org/mathjax-and-latexmath-support-differences-to-Asciidoc-td3159.html)
 #
-lines = lines.map do |line|
+
+adoc = lines.map do |line|
   if line.include? 'latexmath'
     line = line.gsub(%r{latexmath:\[\$((?:(?!\$\]).)+)\$\]}, 'latexmath:[\1]')
-    m = line.match(%r{latexmath:\[\\\[((?:(?!\\\]).)+)\\\]})
+    m = line.match(%r{latexmath:\[\\\[((?:(?!\\\]).)+)\\\]\]})
     if m
       line = [
-        '[latexmath]',
-        '++++',
-        Regexp.last_match[1],
-        '++++']
+        "[latexmath]\n",
+        "++++\n",
+        Regexp.last_match[1]+"\n",
+        "++++\n"]
     end
   end
   line
-end.flatten
+end.reject(&:nil?).flatten.join()
+
+lines = adoc.gsub(%r{latexmath:\[\\\[((?:(?!\\\]).)+)\\\]\]}m) do |x|
+  body  = Regexp.last_match[1].strip
+  STDERR.puts(body)
+<<-MULTILINE_MATH
+
+[latexmath]
+++++
+#{body}
+++++
+MULTILINE_MATH
+end.split("\n")
 
 #
 # Process (LaTeX) includes
