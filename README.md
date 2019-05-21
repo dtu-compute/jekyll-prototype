@@ -37,7 +37,7 @@ DTU_ENOTE_VOL=$(pwd) ./translator/translate.sh <course id>
 
 ```
 cd course_website
-npm run start serve
+npm run start
 ```
 
 

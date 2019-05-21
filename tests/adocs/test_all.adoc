@@ -1,0 +1,84 @@
+---
+layout: page
+title:  "FU01L-OPG"
+date:  2019-05-13 20:49:13 -0700
+---
+
+
+== Test: include macros.tex
+
+This method, https://github.com/asciidoctor/asciidoctor-latex#6-macros[in the docs], doesn't seem to work:
+....
+[latexmath]
+++++
+include_latex_macros::macros.tex[]
+++++
+....
+
+This works (spaces around the `::` otherwise it'll work right in place)
+....
+[latexmath]
+++++
+include :: test_macros.tex[]
+++++
+....
+
+[latexmath]
+++++
+include::test_macros.tex[]
+++++
+
+== Test: LaTeX
+
+[latexmath]
+++++
+\e^{\pi i}
+++++
+
+
+En funktion latexmath:[\,f:\reel^2\rightarrow\reel\,] er givet ved
+[latexmath]
+++++
+\,f(x,y)=x^2+y^2\,.
+++++
+
+
+Note that in the above `\reel` and `\e` are defined by the macros, so if something goes wrong with the inclusion you should see those formulae above broken.
+
+== Test: Question Hint Answer
+
+This is the 2019 eNote website version of Question/Hint/Answer blocks coming to AsciiDoc:
+
+[question]
+.....
+
+Beskriv niveaukurverne givet ved latexmath:[\,f(x,y)=c\,] for
+værdierne latexmath:[\,c \in\lbrace 1,2,3,4,5\rbrace\,.]
+
+.....
+
+[hint]
+.....
+
+Husk cirklens ligning: latexmath:[\,(x-a)^2+(x-b)^2=r^2\,.]
+
+.....
+
+[answer]
+.....
+
+Niveaukurverne er cirkler der alle har centrum i
+latexmath:[\,(0,0)\,.] Deres radier er henholdsvis
+latexmath:[\,1,\,\sqrt 2,\,\sqrt 3,\,2,\,\sqrt 5\,.]
+
+.....
+
+
+= Inter Document links
+
+This should reference real names using https://github.com/jirutka/asciidoctor-interdoc-reftext[Interdoc reftext], i.e. you should see real titles in the links below, not `test_all_2.adoc`.
+
+xref:test_all_2.adoc#[]
+
+xref:test_all_2.adoc#sec2[]
+

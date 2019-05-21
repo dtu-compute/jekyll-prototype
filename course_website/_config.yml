@@ -27,9 +27,11 @@ markdown: kramdown
 theme: minima
 plugins:
 - jekyll-feed
+- asciidoctor-interdoc-reftext
 - asciidoctor-dtu-enote
 
 asciidoctor:
+  base_dir: :docdir
   attributes:
   - stem
 

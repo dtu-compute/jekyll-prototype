@@ -1,0 +1,33 @@
+PATH
+  remote: ../translator
+  specs:
+    asciidoctor-dtu-enote (0.0.1)
+      asciidoctor (~> 1.5)
+      awesome_print (~> 1.8)
+      pry (~> 0.12.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (1.5.8)
+    asciidoctor-interdoc-reftext (0.5.0)
+      asciidoctor (>= 1.5.6, < 3.0)
+    awesome_print (1.8.0)
+    coderay (1.1.2)
+    method_source (0.9.2)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  asciidoctor (~> 1.5)
+  asciidoctor-dtu-enote!
+  asciidoctor-interdoc-reftext (~> 0.5)
+  awesome_print (~> 1.8)
+  pry (~> 0.12.2)
+
+BUNDLED WITH
+   2.0.1

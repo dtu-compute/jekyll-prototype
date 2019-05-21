@@ -10,3 +10,4 @@ translator/*.adoc
 translator/*.pp.md
 translator/*.html
 translator/*.md
+tests/adocs/*.html

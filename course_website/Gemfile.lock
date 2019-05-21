@@ -12,6 +12,8 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     asciidoctor (1.5.8)
+    asciidoctor-interdoc-reftext (0.5.0)
+      asciidoctor (>= 1.5.6, < 3.0)
     awesome_print (1.8.0)
     coderay (1.1.2)
     colorator (1.1.0)
@@ -84,6 +86,7 @@ PLATFORMS
 
 DEPENDENCIES
   asciidoctor-dtu-enote!
+  asciidoctor-interdoc-reftext (~> 0.5)
   awesome_print
   jekyll (~> 3.8.5)
   jekyll-asciidoc (~> 2.1)
