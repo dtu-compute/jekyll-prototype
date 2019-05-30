@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-require 'pry'
-require 'awesome_print'
+#require 'pry'
+#require 'awesome_print'
 
 include Asciidoctor
 
@@ -45,7 +45,9 @@ class Numeric
     s, q = "", self
     while true
       (q, r = (q - 1).divmod(26))
-      s.prepend(Alph[r])
+      # Opal doesn't like this
+#      s.prepend(Alph[r])
+      s = Alph[r] + s
       break if q.zero?
     end
     s
