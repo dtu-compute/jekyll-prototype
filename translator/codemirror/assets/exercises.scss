@@ -1,0 +1,200 @@
+@import './tango_palette.scss';
+//@import 'bs';
+
+// Place all the styles related to the exercise controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.btn-hint, .btn-answer {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.question, .hint, .answer {
+  background-color: #f0f0f0;
+  position: relative;
+  top: auto;
+  left: auto;
+  width: auto;
+  height: auto;
+}
+
+.hide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* directives */
+
+.question, .hint, .answer {
+  text-align:left;
+  margin: 10px 0 10px 0;
+  width: 100%;
+}
+.question,
+.answer ,
+.hint {
+  > .content {
+    display: table-cell;
+    padding: 10px 10px 0 10px;
+    margin: auto 0;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  > .btn {
+    display: none;
+  }
+}
+
+.question, .hint, .answer {
+  border: 1px solid;
+  border-radius: 5px;
+  border-spacing: 0;
+  display:table;
+  margin-top: 5px;
+}
+
+
+.answer > .title,
+.hint > .title,
+.question > .title {
+  height:100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+  border-spacing: 0;
+  font-size:18px;
+  text-transform: uppercase;
+  color:white;
+  display:table-cell;
+  vertical-align: middle;
+  text-align: center;
+  height: 50px;
+  max-width: 24px;
+  min-width: 24px;
+  div {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform:  translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+}
+
+.answer.qha-content-hidden,
+.hint.qha-content-hidden
+{
+  background-color: unset;
+  border: unset;
+
+  > .title,
+  > .content {
+    display: none;
+  }
+
+  > .btn {
+    text-align: center;
+    display: block;
+    color: white;
+    margin: 0 auto;
+  }
+}
+
+.hide-dependent
+{
+  display: none;
+}
+
+
+.answer.qha-hidden > button,
+.hint.qha-hidden > button
+{
+  display: block !important;
+}
+
+.question {
+  background-color: lighten($butter-light, 30%);
+  border: 1px $butter-dark solid;
+  > .title {
+    background-color: $butter-dark;
+    border-right: 1px $butter-dark solid;
+    color: lighten($butter-light, 30%);
+  }
+}
+.hint {
+  border-color: $plum-dark;
+  background-color: lighten($plum-light, 30%);
+  border: 1px $plum-dark solid;
+  > .title {
+    border-right: 1px $plum-dark solid;
+    background-color: $plum-dark;
+    color: lighten($plum-light, 30%);
+  }
+}
+
+.answer {
+  position: relative;
+  border-color: $sky-blue-dark;
+  background-color: lighten($sky-blue-light, 30%);
+  border: 1px $sky-blue-dark solid;
+  > .title {
+    border-right: 1px $sky-blue-dark solid;
+    background-color: $sky-blue-dark;
+    color: lighten($sky-blue-light, 30%);
+  }
+}
+
+.btn-hint,
+.btn-hint:hover,
+.btn-hint:active,
+.btn-hint:visited,
+.btn-hint:focus {
+  background-color: $sky-blue;
+  border-color: $sky-blue-dark;
+}
+
+.btn-answer,
+.btn-answer:hover,
+.btn-answer:active,
+.btn-answer:visited,
+.btn-answer:focus {
+  background-color: $chameleon;
+  border-color: $chameleon-dark;
+}
+
+
+/* just because "ANSWER" takes up so much room */
+.answer {
+  .directive-region-item-container {
+    height: 100px;
+    min-height: 100px;
+  }
+}
+
+@media print {
+  .btn-hint, .btn-answer {
+    display: none;
+  }
+
+  .answer, .hint, .edit, .report-a-bug  {
+    position: absolute;
+    top: 0;
+    left:0;
+    width:0;
+    height:0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .directive-region {
+    page-break-inside: avoid;
+  }
+}
