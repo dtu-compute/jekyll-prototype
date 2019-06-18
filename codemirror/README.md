@@ -5,10 +5,10 @@
 First step is to compile the DTU asciidoctor extensions using Opal.
 
 ```
-pushd ..
+pushd ../translator
 npm install
 npm run compile
-cp dtu-enote-asciidoctor-extensions.js codemirror/src/components
+cp dtu-enote-asciidoctor-extensions.js ../codemirror/src/components
 popd
 ```
 

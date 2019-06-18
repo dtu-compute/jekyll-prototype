@@ -1,4 +1,4 @@
-= Title of Test All 2
+= Title of Test Part II
 
 [#sec2]
 == Section 2

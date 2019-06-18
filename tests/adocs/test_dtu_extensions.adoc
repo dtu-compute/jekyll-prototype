@@ -1,0 +1,33 @@
+---
+layout: page
+title:  "Text DTU Extensions"
+date:  2019-05-13 20:49:13 -0700
+---
+
+= Title of Test DTU Extensions
+
+
+[question]
+.....
+
+Bestem ved hjælp af tangentielt kurveintegral af latexmath:[\,\mV\,]
+langs _trappelinjen_ til et vilkårligt punkt latexmath:[\,(x,y,z)\,]
+samtlige stamfunktioner latexmath:[\,\mV\,.]
+
+.....
+
+[hint]
+.....
+
+Brug formlen i MapleDemoen F10alatexmath:[\_]TangKurveIntegral.
+
+.....
+
+[answer]
+.....
+
+Samtlige stamfunktioner er givet ved
+[latexmath]
+++++
+\displaystyle{F(x,y,z)=\frac 12 x^2-\frac 12 y^2 +xz-yz + k\,,\,\,k\in\reel}\,.
+++++
