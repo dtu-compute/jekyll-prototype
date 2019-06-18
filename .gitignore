@@ -4,6 +4,7 @@
 /.idea
 /course_website/assets
 course_website/_pages/**/*.adoc
+course_website/_pages/**/*.tex
 course_website/_site/**/*
 course_website/uploads/**/*
 translator/*.adoc
