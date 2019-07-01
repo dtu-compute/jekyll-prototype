@@ -1,0 +1,9 @@
+/**/node_modules/
+/**/.idea/
+.git
+*Dockerfile*
+*docker-compose*
+node_modules
+README.md
+course_website/_pages/**/*
+

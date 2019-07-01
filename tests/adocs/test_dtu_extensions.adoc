@@ -4,7 +4,12 @@ title:  "Text DTU Extensions"
 date:  2019-05-13 20:49:13 -0700
 ---
 
-= Title of Test DTU Extensions
+[latexmath]
+++++
+include::test_macros.tex[]
+++++
+
+== Title of Test DTU Extensions
 
 
 [question]
@@ -31,3 +36,4 @@ Samtlige stamfunktioner er givet ved
 ++++
 \displaystyle{F(x,y,z)=\frac 12 x^2-\frac 12 y^2 +xz-yz + k\,,\,\,k\in\reel}\,.
 ++++
+.....

@@ -52,9 +52,23 @@ npm run start
 
 This will start the server at `http://127.0.0.1:4000/`.
 
-The tests can be found [here](https://127.0.0.1:4000/tests/index.html).
+The tests can be found [here](http://127.0.0.1:4000/pages/tests/index.html).
 
-The translated files can be found [here](https://127.0.0.1:4000/pages/translated/01005/FU06S-OPG.html) (depending on the course(s) you've translated).
+The translated files can be found [here](http://127.0.0.1:4000/pages/translated/01005/FU06S-OPG.html) (depending on the course(s) you've translated).
+
+## From Docker
+
+```bash
+docker build -t jekyll-prototype .
+
+docker run -d -p 4000:4000 -p 8080:8080 --name jekyll-prototype jekyll-prototype
+```
+
+And to delete it:
+
+```asciidoc
+docker rm -f jekyll-prototype
+```
 
 ## What's Included in the Prototype
 
@@ -66,6 +80,8 @@ The translated files can be found [here](https://127.0.0.1:4000/pages/translated
 * Menu or index pages
 * Any of the non-static parts of the website (e.g. admin, authentication, etc...)
 * Dependency-based rebuild (e.g. rebuilding page if included LaTeX changes, or if link to another page disappears, etc...)
+* LaTeX rendering in the codemirror preview
+
 
 
 

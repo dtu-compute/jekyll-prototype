@@ -36,7 +36,14 @@ export default {
     flex-direction: row;
   }
   .editor-container, .previewer-container {
-    width:50%;
-    height:100%;
+    width: 50%;
+    height: 100%;
+  }
+  .editor-container {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .previewer-container {
+    padding-left: 10px;
   }
 </style>

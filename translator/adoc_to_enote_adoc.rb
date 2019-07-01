@@ -151,7 +151,6 @@ end.reject(&:nil?).flatten.join()
 
 lines = adoc.gsub(%r{latexmath:\[\\\[((?:(?!\\\]).)+)\\\]\]}m) do |x|
   body  = Regexp.last_match[1].strip
-  STDERR.puts(body)
 <<-MULTILINE_MATH
 
 [latexmath]
@@ -167,6 +166,7 @@ end.split("\n")
 lines = lines.map do |line|
   m = line.match(%r{== include (.*)\.tex})
   if m
+    STDERR.puts("include #{m[1]}")
     line = [
       '[latexmath]',
       '++++',

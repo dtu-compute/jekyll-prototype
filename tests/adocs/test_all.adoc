@@ -4,9 +4,9 @@ title:  "Tests, Part I"
 date:  2019-05-13 20:49:13 -0700
 ---
 
-= Tests Part I
+== Tests Part I
 
-== Test: include macros.tex
+=== Test: include macros.tex
 
 This method, https://github.com/asciidoctor/asciidoctor-latex#6-macros[in the docs], doesn't seem to work:
 ....
@@ -29,7 +29,7 @@ include :: test_macros.tex[]
 include::test_macros.tex[]
 ++++
 
-== Test: LaTeX
+=== Test: LaTeX
 
 [latexmath]
 ++++
@@ -46,7 +46,7 @@ En funktion latexmath:[\,f:\reel^2\rightarrow\reel\,] er givet ved
 
 Note that in the above `\reel` and `\e` are defined by the macros, so if something goes wrong with the inclusion you should see those formulae above broken.
 
-== Test: Question Hint Answer
+=== Test: Question Hint Answer
 
 This is the 2019 eNote website version of Question/Hint/Answer blocks coming to AsciiDoc:
 
@@ -75,7 +75,7 @@ latexmath:[\,1,\,\sqrt 2,\,\sqrt 3,\,2,\,\sqrt 5\,.]
 .....
 
 
-= Inter Document links
+== Inter Document links
 
 This should reference real names using https://github.com/jirutka/asciidoctor-interdoc-reftext[Interdoc reftext], i.e. you should see real titles in the links below, not `test_all_2.adoc`.
 

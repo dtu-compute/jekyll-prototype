@@ -2,11 +2,12 @@
   "name": "codemirror-prototype",
   "version": "1.0.0",
   "description": "Prototype for using codemirror to edit DTU asciidoc files with preview",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config build/webpack.config.dev.js",
-    "serve": "webpack-dev-server --config build/webpack.config.dev.js",
+    "serve": "webpack-dev-server --host 0.0.0.0 --port 8080 --config build/webpack.config.dev.js",
+    "prodserve": "webpack-dev-server --host 0.0.0.0 --port 8080 --config build/webpack.config.production.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix"
   },
