@@ -12,6 +12,7 @@
 <script>
 import Asciidoctor from 'asciidoctor';
 import Exercise from '../exercise';
+import '@asciidoctor/core/dist/css/asciidoctor.css';
 
 export default {
   props: {

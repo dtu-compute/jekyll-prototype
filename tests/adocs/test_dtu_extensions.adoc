@@ -11,6 +11,16 @@ include::test_macros.tex[]
 
 == Title of Test DTU Extensions
 
+=== Include LaTeX
+
+The LaTeX include is working if the formula below contains the symbol for the real numbers, and not `\reel`.
+
+[latexmath]
+++++
+\reel
+++++
+
+=== Question/Hint/Answer
 
 [question]
 .....
