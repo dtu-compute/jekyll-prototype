@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/webpack --watch | bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --incremental",
-    "build": "./node_modules/.bin/webpack | bundle exec jekyll build"
+    "start": "./node_modules/.bin/webpack --watch --config ./webpack.config.js | bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload --incremental",
+    "build": "./node_modules/.bin/webpack --config ./webpack.config.js && bundle exec jekyll build"
   },
   "keywords": [
     "DTU",

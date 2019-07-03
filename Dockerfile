@@ -46,7 +46,8 @@ RUN cd course_website && \
     bundle install
 
 RUN cd course_website && \
-    npm install
+    npm install && \
+    npm run build
 
 RUN cd translator && \
     bundle update --bundler && \

@@ -70,6 +70,27 @@ And to delete it:
 docker rm -f jekyll-prototype
 ```
 
+Full script to run on a new server:
+
+```bash
+git clone https://github.com/dtu-compute/jekyll-prototype
+cd jekyll-prototype
+
+ssh root@enote-devel3.compute.dtu.dk 'tar -cf - /enote/vol/content | gzip -9'  > ~/enote-vol-content-$(date +"%m-%d-%y").tgz
+
+[[ -d content ]] && rm -rf content
+mkdir content
+tar -xzvf ~/enote-vol-content-$(date +"%m-%d-%y").tgz -C content
+mv content/enote/vol/content/* content/
+
+docker rm -f jekyll-prototype
+
+docker build -t jekyll-prototype .
+
+docker run -d -p 4000:4000 -p 8080:8080 --name jekyll-prototype jekyll-prototype
+```
+
+
 ## What's Included in the Prototype
 
 * AsciiDoctor with basic DTU AsciiDoc extensions (question/hint/answer, podcast link, etc...)
