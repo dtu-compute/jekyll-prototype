@@ -23,6 +23,7 @@ group :jekyll_plugins do
   gem 'jekyll-asciidoc', "~> 2.1"
   gem 'asciidoctor-interdoc-reftext', '~> 0.5'
   gem 'asciidoctor-dtu-enote', :path => '../translator'
+  gem "asciidoctor-latex", "~> 1.5.dev"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -32,3 +33,4 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 gem 'awesome_print'
+

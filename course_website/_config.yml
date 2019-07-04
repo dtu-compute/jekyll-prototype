@@ -29,6 +29,7 @@ plugins:
 - jekyll-feed
 - asciidoctor-interdoc-reftext
 - asciidoctor-dtu-enote
+- asciidoctor-latex
 
 asciidoctor:
   base_dir: :docdir
