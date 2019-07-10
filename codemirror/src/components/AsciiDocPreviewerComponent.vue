@@ -28,15 +28,16 @@ export default {
 
   computed: {
     previewHtml: function () {
-      return this.asciidoctor.convert(this.previewText, { 'extension_registry': this.registry });
+      const html = this.asciidoctor.convert(this.previewText, { 'extension_registry': this.registry });
+      return html;
     }
   },
 
   created: function () {
     this.asciidoctor = Asciidoctor();
     this.registry = this.asciidoctor.Extensions.create();
-    /* eslint-disable-next-line no-unused-vars */
-    const dtuExtension = require('./dtu-enote-asciidoctor-extensions.js');
+    this.dtuExtensionExtension = require('./dtu-enote-asciidoctor-extensions.js');
+    // this.asciiDoctorLatexExtension = require('asciidoctor-latex.js');
     // dtuExtension(this.registry);
     // require('./lorem.js')(this.registry);
   },
@@ -45,14 +46,20 @@ export default {
   },
 
   updated: function () {
-    Exercise.replaceHints();
+    this.$nextTick(function () {
+      Exercise.replaceHints();
+      console.log('queing typeset');
+      window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub]);
+    });
   }
 };
 </script>
 
 <style lang="scss" scoped>
     #preview {
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
+      max-height: 100vh;
+      overflow-y: scroll;
     }
 </style>

@@ -50,15 +50,42 @@ Note that in the above `\reel` and `\e` are defined by the macros, so if somethi
 
 ==== Alternate Notation
 
+===== Inline Math
 
-The formula $a^2 + b^2 = c^2$ relates the sides
+Asciidoctor-latex-specific:
+
+....
+$a^2 + b^2 = c^2$
+....
+
+$a^2 + b^2 = c^2$
+
+Using `\$` works everywhere, not just with asciidoctor-latex:
+
+....
+\  $a^2 + b^2 = c^2 \ $
+....
+
+\$a^2 + b^2 = c^2\$
+
+
+===== Block Math
+
+
+....
+\[
+\int_0^1 x^n dx = \frac{1}{n+1}
+\]
+....
+
+The formula \$a^2 + b^2 = c^2\$ relates the sides
 and hypotenuse of a right triangle.  The formula
 \[
 \int_0^1 x^n dx = \frac{1}{n+1}
 \]
 is something we all learn in Calculus
 
-  
+
 === Test: Question Hint Answer
 
 This is the 2019 eNote website version of Question/Hint/Answer blocks coming to AsciiDoc:

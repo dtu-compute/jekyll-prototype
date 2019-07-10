@@ -1,7 +1,5 @@
-/translator/.idea
 /content
-/course_website/.idea
-/.idea
+**/.idea
 /course_website/assets
 course_website/_pages/**/*.adoc
 course_website/_pages/**/*.tex

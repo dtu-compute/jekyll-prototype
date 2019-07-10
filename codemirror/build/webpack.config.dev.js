@@ -12,7 +12,9 @@ function resolve (dir) {
 
 module.exports = {
   mode: 'development',
-  
+  node: { // https://github.com/webpack-contrib/css-loader/issues/447
+    fs: 'empty'
+  },
   entry: [
     './src/app.js'
   ],

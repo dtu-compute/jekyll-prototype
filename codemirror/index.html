@@ -9,5 +9,24 @@
   <body>
     <div id="app"></div>
     <script nosrc="dist/main.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath",
+    skipTags:["script","noscript","style","textarea"]
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath",
+    skipTags:["script","noscript","style","textarea"]
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
   </body>
 </html>
