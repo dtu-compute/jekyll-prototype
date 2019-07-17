@@ -29,7 +29,7 @@ plugins:
 - jekyll-feed
 - asciidoctor-interdoc-reftext
 - asciidoctor-dtu-enote
-- asciidoctor-latex
+- jekyll-mathjax-csp
 
 asciidoctor:
   base_dir: :docdir
@@ -39,6 +39,19 @@ asciidoctor:
 collections:
   pages:
     output: true
+
+mathjax_csp:
+  linebreaks: false
+  single_dollars: false
+  format: AsciiMath,TeX,MathML
+  font: TeX
+  semantics: false
+  output: SVG
+  eqno: none
+  ex_size: 6
+  width: 100
+  font_url: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/fonts/HTML-CSS"
+  strip_css: false
 
 sass:
   sass_dir: _sass

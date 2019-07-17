@@ -9,6 +9,7 @@ date:  2019-05-13 20:49:13 -0700
 === Test: include macros.tex
 
 This method, https://github.com/asciidoctor/asciidoctor-latex#6-macros[in the docs], doesn't seem to work:
+
 ....
 [latexmath]
 ++++
@@ -52,22 +53,11 @@ Note that in the above `\reel` and `\e` are defined by the macros, so if somethi
 
 ===== Inline Math
 
-Asciidoctor-latex-specific:
-
 ....
 $a^2 + b^2 = c^2$
 ....
 
 $a^2 + b^2 = c^2$
-
-Using `\$` works everywhere, not just with asciidoctor-latex:
-
-....
-\  $a^2 + b^2 = c^2 \ $
-....
-
-\$a^2 + b^2 = c^2\$
-
 
 ===== Block Math
 
@@ -78,7 +68,7 @@ Using `\$` works everywhere, not just with asciidoctor-latex:
 \]
 ....
 
-The formula \$a^2 + b^2 = c^2\$ relates the sides
+The formula $a^2 + b^2 = c^2$ relates the sides
 and hypotenuse of a right triangle.  The formula
 \[
 \int_0^1 x^n dx = \frac{1}{n+1}

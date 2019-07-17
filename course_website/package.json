@@ -24,5 +24,7 @@
     "webpack": "^4.29.4",
     "webpack-cli": "^3.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mathjax-node-page": "^2.0.0"
+  }
 }

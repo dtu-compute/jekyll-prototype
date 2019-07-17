@@ -23,7 +23,7 @@ group :jekyll_plugins do
   gem 'jekyll-asciidoc', "~> 2.1"
   gem 'asciidoctor-interdoc-reftext', '~> 0.5'
   gem 'asciidoctor-dtu-enote', :path => '../translator'
-  gem "asciidoctor-latex", "~> 1.5.dev"
+  gem 'jekyll-mathjax-csp', '~> 1.1.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
