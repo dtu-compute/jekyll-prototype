@@ -1,8 +1,129 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-#require 'pry'
-#require 'awesome_print'
+require 'pry' unless RUBY_ENGINE == 'opal'
+require 'awesome_print' unless RUBY_ENGINE == 'opal'
 
 include Asciidoctor
+
+require 'nokogiri' if RUBY_ENGINE != 'opal'
+
+class InjectScriptAndStyle < Asciidoctor::Extensions::Postprocessor
+  def process(document, output)
+    doc = Nokogiri::HTML(output)
+    head = doc.at_css 'head'
+    doc.at_css('body')['onload'] = 'onLoad()'
+    basedir = File.expand_path('../../', __FILE__)
+
+    head.add_child(<<-'HTML'
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  "messageStyle": "none",
+  "tex2jax": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "displayMath": [
+      [
+        "\\[",
+        "\\]"
+      ]
+    ],
+    "ignoreClass": "nostem|nolatexmath"
+  },
+  "asciimath2jax": {
+    "delimiters": [
+      [
+        "\\$",
+        "\\$"
+      ]
+    ],
+    "ignoreClass": "nostem|noasciimath"
+  },
+  "TeX": {
+    "equationNumbers": {
+      "autoNumber": "none"
+    }
+  }
+})
+</script>
+    HTML
+    )
+
+    head.add_child(<<-HTML
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML" />
+    HTML
+    )
+
+    inject_stylesheet(head, File.join(basedir, 'css', 'exercise.css'))
+    inject_stylesheet(head, File.join(basedir, 'css', 'quizQuestion.css'))
+
+    inject_script(head, File.join(basedir, 'js', 'exercise.js'))
+
+    inject_script(head, File.join(basedir, 'js', 'quizQuestion.js'))
+
+    File.open("#{basedir}/js/exercise.js") do |file|
+      doc.at_css('body').add_child(<<-HTML
+<script type="text/javascript">
+
+function ready(callbackFunc) {
+  if (document.readyState !== 'loading') {
+    // Document is already ready, call the callback directly
+    callbackFunc();
+  } else if (document.addEventListener) {
+    // All modern browsers to register DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', callbackFunc);
+  } else {
+    // Old IE browsers
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState === 'complete') {
+        callbackFunc();
+      }
+    });
+  }
+}
+
+ready(function () {
+  Exercise.replaceHints();
+  window.question = new QuizQuestion();
+  if (window.MathJax) {
+    window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub]);
+  }
+});
+
+function onLoad() {};
+
+                    </script>
+HTML
+)
+    end
+
+    doc.to_html
+  end
+
+  def inject_script(head, js_filename)
+    File.open(js_filename) do |file|
+      head.add_child(<<-HTML
+<script type="text/javascript">
+  #{file.read}
+</script>
+      HTML
+      )
+    end
+  end
+
+  def inject_stylesheet(head, css_filename)
+    File.open(css_filename) do |file|
+      head.add_child(<<-HTML
+<style type="text/css">
+  #{file.read}
+</style>
+      HTML
+      )
+    end
+  end
+end
 
 module CoreExtensions
   module Asciidoctor
@@ -100,7 +221,7 @@ class QuestionHintAnswerTreeprocessor < Extensions::Treeprocessor
 #              binding.pry
 # puts "finding questions #{el.context} #{counter.ai}"
           if el.title?
-            #replaced = "Question %d.%d" % [chap, get_and_tally_counter_of(type, counter)]
+            #replaced = "QuizQuestion %d.%d" % [chap, get_and_tally_counter_of(type, counter)]
             replaced = get_and_tally_counter_of(type, counter).alph
             replaced_caption = replaced + ' '
             el.title = replaced
@@ -155,11 +276,48 @@ class PodcastBlockMacro < Extensions::BlockMacroProcessor
   end
 end
 
+class QuizAnswerBlockMacro < Extensions::BlockMacroProcessor
+  use_dsl
+
+  named :answer
+
+  def process parent, target, attrs
+    root = create_block parent, :pass, {}, { type: 'answer' }
+
+    display = attrs[1]
+    answer = attrs[2]
+    parent_kind = attrs[:parent_kind]
+
+    root << Asciidoctor::Block.new(parent, :open, {'role' => 'quiz-display-text'})
+    root << Asciidoctor::Block.new(parent, :open, {'role' => 'quiz-answer-text'})
+
+    parse_content root.blocks[0], Asciidoctor::Reader.new(display)
+    parse_content root.blocks[1], Asciidoctor::Reader.new(answer) if answer
+
+    mode = %w[right wrong].include?(target) ? target : nil
+
+    root.blocks[0].blocks[0].attributes['role'] = 'quiz-display-text ' unless root.blocks[0]&.blocks&.[](0).nil?
+    root.blocks[1].blocks[0].attributes['role'] = 'quiz-answer-text'   unless root.blocks[1]&.blocks&.[](0).nil?
+
+    html = %(
+    <div class="quiz-answer #{ mode ? ('quiz-answer-' + mode) : '' }">
+      <label> <input type="#{parent_kind == 'mc' ? 'radio' : 'checkbox' }"> #{root.blocks[0].content} </label>
+      <span> #{root.blocks[1].content} </span>
+    </div>
+    )
+    create_block parent, :pass, html, { type: 'answer', role: mode }
+  end
+end
+
 Extensions.register(:qha) {
   # TODO: move this to its own file
   block_macro PodcastBlockMacro
 
+  block_macro QuizAnswerBlockMacro
+
   tree_processor QuestionHintAnswerTreeprocessor
+
+  postprocessor InjectScriptAndStyle unless RUBY_ENGINE == 'opal'
 
   %i[question hint answer].each do |el_type|
     block {

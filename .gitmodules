@@ -1,0 +1,3 @@
+[submodule "translator/asciidoctor-question"]
+	path = translator/asciidoctor-question
+	url = https://github.com/hobbypunk90/asciidoctor-question

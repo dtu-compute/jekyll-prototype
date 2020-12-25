@@ -1,0 +1,88 @@
+
+.quiz-answer-text, .quiz-display-text {
+    display: inline-block;
+}
+
+.quiz-answer-text {
+    visibility: hidden;
+}
+
+.quiz-question-mc > ol,
+.quiz-question-ata > ol {
+    list-style: none;
+}
+
+.quiz-question-mc > ol > li > .quiz-answer.answer-selected .quiz-answer-text {
+    display: block;
+    visibility: visible;
+}
+
+.quiz-question-ata > ol > li > .quiz-answer.answer-correct .quiz-answer-text,
+.quiz-question-mc > ol > li > .quiz-answer.answer-selected.quiz-answer-right .quiz-answer-text {
+    color: darkgreen;
+}
+
+.quiz-question-ata > ol > li > .quiz-answer.answer-incorrect .quiz-answer-text,
+.quiz-question-mc > ol > li > .quiz-answer.answer-selected.quiz-answer-wrong .quiz-answer-text {
+    color: red;
+}
+
+.gap.answer-correct:before,
+.quiz-answer.answer-correct > label:before,
+.quiz-answer.answer-selected.quiz-answer-right > label:before {
+    content: '\2713';
+    position: absolute;
+    color: darkgreen;
+    margin-left: -1.0em;
+}
+
+.gap.answer-incorrect:before,
+.quiz-answer.answer-incorrect > label:before,
+.quiz-answer.answer-selected.quiz-answer-wrong > label:before {
+    content: '\2717';
+    position: absolute;
+    color: red;
+    margin-left: -1.0em;
+}
+
+
+.quiz-question-ata > ol > li > .quiz-answer.quiz-answer-wrong.answer-checked.answer-incorrect .quiz-answer-text {
+    display: block;
+    visibility: visible;
+}
+
+.quiz-question-ata > ol > li > .quiz-answer.quiz-answer-right.answer-checked.answer-correct .quiz-answer-text {
+    display: block;
+    visibility: visible;
+}
+
+/*
+GAP
+ */
+
+.gap.answer-incorrect > input {
+    background-color: rgba(250,80,80,0.5);
+    decoration-style: line-through;
+}
+
+.gap.answer-correct > input {
+    background-color: rgba(80,255,80,0.5);
+}
+
+.gap {
+    padding: 0.2em 0.2em 0.2em 1.2em;
+}
+
+.gap > input {
+    outline: none;
+    border: none;
+    padding: 0;
+    background-color: #ccc;
+    font-family: "Droid Sans Mono", monospace;
+    font-size: 0.8em;
+    margin: 0.2em 0;
+}
+
+.gap-answer {
+    display: none;
+}

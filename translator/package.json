@@ -12,7 +12,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "opal-compiler": "^1.0.13"
+    "opal-compiler": "^1.0.15"
   },
   "devDependencies": {},
   "author": "",

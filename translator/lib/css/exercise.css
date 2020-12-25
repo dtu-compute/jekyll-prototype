@@ -1,0 +1,159 @@
+.btn-hint, .btn-answer {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 5px 10px;
+    text-align: center; }
+
+.question, .hint, .answer {
+    background-color: #f0f0f0;
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto; }
+
+.hide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden; }
+
+/* directives */
+.question, .hint, .answer {
+    text-align: left;
+    margin: 10px 0 10px 0;
+    width: 100%; }
+
+.question > .content,
+.answer > .content,
+.hint > .content {
+    display: table-cell;
+    padding: 10px 10px 0 10px;
+    margin: auto 0;
+    vertical-align: middle;
+    width: 100%; }
+
+.question > .btn,
+.answer > .btn,
+.hint > .btn {
+    display: none; }
+
+.question, .hint, .answer {
+    border: 1px solid;
+    border-radius: 5px;
+    border-spacing: 0;
+    display: table;
+    margin-top: 5px; }
+
+.answer > .title,
+.hint > .title,
+.question > .title {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+    border-spacing: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 50px;
+    max-width: 24px;
+    min-width: 24px; }
+.answer > .title div,
+.hint > .title div,
+.question > .title div {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+
+.answer.qha-content-hidden,
+.hint.qha-content-hidden {
+    background-color: unset;
+    border: unset; }
+.answer.qha-content-hidden > .title,
+.answer.qha-content-hidden > .content,
+.hint.qha-content-hidden > .title,
+.hint.qha-content-hidden > .content {
+    display: none; }
+.answer.qha-content-hidden > .btn,
+.hint.qha-content-hidden > .btn {
+    text-align: center;
+    display: block;
+    color: white;
+    margin: 0 auto; }
+
+.hide-dependent {
+    display: none; }
+
+.answer.qha-hidden > button,
+.hint.qha-hidden > button {
+    display: block !important; }
+
+.question {
+    background-color: #fffce5;
+    border: 1px #c4a000 solid; }
+.question > .title {
+    background-color: #c4a000;
+    border-right: 1px #c4a000 solid;
+    color: #fffce5; }
+
+.hint {
+    border-color: #5c3566;
+    background-color: #e9dce7;
+    border: 1px #5c3566 solid; }
+.hint > .title {
+    border-right: 1px #5c3566 solid;
+    background-color: #5c3566;
+    color: #e9dce7; }
+
+.answer {
+    position: relative;
+    border-color: #204a87;
+    background-color: #e4edf6;
+    border: 1px #204a87 solid; }
+.answer > .title {
+    border-right: 1px #204a87 solid;
+    background-color: #204a87;
+    color: #e4edf6; }
+
+.btn-hint,
+.btn-hint:hover,
+.btn-hint:active,
+.btn-hint:visited,
+.btn-hint:focus {
+    background-color: #3465a4;
+    border-color: #204a87; }
+
+.btn-answer,
+.btn-answer:hover,
+.btn-answer:active,
+.btn-answer:visited,
+.btn-answer:focus {
+    background-color: #73d216;
+    border-color: #4e9a06; }
+
+/* just because "ANSWER" takes up so much room */
+.answer .directive-region-item-container {
+    height: 100px;
+    min-height: 100px; }
+
+@media print {
+    .btn-hint, .btn-answer {
+        display: none; }
+    .answer, .hint, .edit, .report-a-bug {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden; }
+    .directive-region {
+        page-break-inside: avoid; } }

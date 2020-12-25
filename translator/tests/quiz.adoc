@@ -1,0 +1,98 @@
+== Multiple Choice
+
+=== Examples
+
+[question, multiple_choice]
+....
+test1
+
+answer::right['Alaska', correct answer text]
+answer::right[Hawaii, correct answer text 2]
+answer::wrong[Texas, wrong answer]
+....
+
+
+[question, multiple_choice, shuffle]
+....
+Lorem ipsum dolor sit amet, consetetur
+sadipscing elitr, sed diam nonumy eirmod
+tempor invidunt ut labore et dolore
+magna aliquyam erat, sed diam voluptua.
+
+answer::right['display, text',answer text]
+answer::right[display text,answer text]
+answer::wrong[display text2,answer text2    ]
+....
+
+
+[question, multiple_choice, shuffle]
+....
+brug fx af egenbasen
+latexmath:[\,\big(\,(1,1,0),(1,-1,0),(0,0,-1)\,\big)\,] opnås samme
+afbildningsmatrix. Find selv en egenbasis som ikke har samme
+afbildningsmatrix.
+
+- [X] foo
+
+answer::right['display, latexmath:[\,(x,y)]  text',answer text]
+answer::right[display text,answer text]
+answer::wrong[display text2,answer text2]
+....
+
+
+### Error Cases
+
+[question, miic, shuffle]
+....
+Here's some math:
+latexmath:[\,\big(\,(1,1,0),(1,-1,0),(0,0,-1)\,\big)\,]
+
+answer::right['display, latexmath:[\,(x,y)]  text',answer text]
+answer::right[display text,answer text]
+answer::wrong[display text2,answer text2]
+....
+
+
+## All That Applies
+
+[question, all_that_apply]
+....
+test2
+
+answer::right[right one, you selected wisely!]
+answer::wrong[wrong one, you should not have selected this :(]
+answer::right[pick this one too]
+answer::wrong[not this one, you should have trusted me!]
+....
+
+
+[question, all_that_apply]
+....
+This one should not exist
+
+answer::right['right one latexmath:[\,(x,y)]', you selected wisely!]
+answer::wrong[wrong one, you should not have selected this :(]
+answer::right[pick this one too]
+answer::wrong[not this one, you should have trusted me!]
+....
+
+
+
+
+== Gap
+
+
+[question, gap]
+....
+At vero eos et __accusam__ et justo
+duo dolores et ea rebum. Stet clita
+kasd gubergren, no sea __takimata
+sanctus est Lorem__ ipsum dolor sit
+amet. Lorem __ipsum dolor sit amet__,
+consetetur sadipscing elitr, sed diam
+nonumy __eirmod tempor invidunt__ ut
+labore et dolore magna aliquyam erat,
+sed diam voluptua.
+
+answer::wrong[this message is shown when the answer is wrong]
+....

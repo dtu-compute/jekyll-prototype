@@ -7,6 +7,8 @@ Gem::Specification.new do |s|
   s.files = Dir.glob("{bin,lib}/**/*")# + %w(LICENSE README.md ROADMAP.md CHANGELOG.md)
   s.require_paths = ["lib"]
   s.add_dependency "asciidoctor", "~> 1.5"
+  s.add_dependency "asciidoctor-question"
   s.add_dependency "pry", "~> 0.12.2"
   s.add_dependency "awesome_print", "~> 1.8"
 end
+
