@@ -6,10 +6,10 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
   function $rb_plus(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs + rhs : lhs['$+'](rhs);
   }
-  var $$18, self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $truthy = Opal.truthy, $klass = Opal.klass, $send = Opal.send, $module = Opal.module, $hash2 = Opal.hash2, $range = Opal.range;
+  var $$19, self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $truthy = Opal.truthy, $klass = Opal.klass, $send = Opal.send, $module = Opal.module, $hash2 = Opal.hash2, $range = Opal.range;
 
-  Opal.add_stubs(['$==', '$include', '$!=', '$HTML', '$at_css', '$[]=', '$-', '$expand_path', '$add_child', '$open', '$read', '$inject_script', '$join', '$to_html', '$protected', '$!', '$[]', '$has_role?', '$replace', '$raise', '$===', '$<<', '$to_a', '$divmod', '$+', '$zero?', '$attr_of', '$to_i', '$attr', '$each', '$find_by', '$level', '$get_and_tally_counter_of', '$update', '$title?', '$alph', '$title=', '$id', '$id=', '$attributes', '$caption=', '$references', '$nil?', '$call', '$use_dsl', '$named', '$create_pass_block', '$create_block', '$new', '$parse_content', '$blocks', '$include?', '$content', '$register', '$block_macro', '$tree_processor', '$block', '$on_context', '$parse_content_as', '$process', '$split', '$chomp', '$source', '$merge', '$inject', '$has_key?', '$to_s', '$create_open_block', '$style=']);
-
+  Opal.add_stubs(['$==', '$include', '$!=', '$HTML', '$at_css', '$[]=', '$-', '$expand_path', '$add_child', '$inject_stylesheet', '$join', '$inject_script', '$open', '$to_html', '$read', '$protected', '$!', '$[]', '$has_role?', '$replace', '$raise', '$===', '$<<', '$to_a', '$divmod', '$+', '$zero?', '$attr_of', '$to_i', '$attr', '$each', '$find_by', '$level', '$get_and_tally_counter_of', '$update', '$title?', '$alph', '$title=', '$id', '$id=', '$attributes', '$caption=', '$references', '$nil?', '$call', '$use_dsl', '$named', '$create_pass_block', '$create_block', '$new', '$parse_content', '$blocks', '$include?', '$content', '$register', '$block_macro', '$tree_processor', '$block', '$on_context', '$parse_content_as', '$process', '$split', '$chomp', '$source', '$merge', '$inject', '$has_key?', '$to_s', '$create_open_block', '$style=']);
+  
   if ($$($nesting, 'RUBY_ENGINE')['$==']("opal")) {
   } else {
     nil
@@ -28,55 +28,62 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
   (function($base, $super, $parent_nesting) {
     var self = $klass($base, $super, 'InjectScriptAndStyle');
 
-    var $nesting = [self].concat($parent_nesting), $InjectScriptAndStyle_process$1, $InjectScriptAndStyle_inject_script$4;
+    var $nesting = [self].concat($parent_nesting), $InjectScriptAndStyle_process$1, $InjectScriptAndStyle_inject_script$3, $InjectScriptAndStyle_inject_stylesheet$5;
 
-
-
+    
+    
     Opal.def(self, '$process', $InjectScriptAndStyle_process$1 = function $$process(document, output) {
-      var $$2, $$3, self = this, doc = nil, head = nil, $writer = nil, basedir = nil;
+      var $$2, self = this, doc = nil, head = nil, $writer = nil, basedir = nil;
 
-
+      
       doc = $$($nesting, 'Nokogiri').$HTML(output);
       head = doc.$at_css("head");
-
+      
       $writer = ["onload", "onLoad()"];
       $send(doc.$at_css("body"), '[]=', Opal.to_a($writer));
       $writer[$rb_minus($writer["length"], 1)];;
       basedir = $$($nesting, 'File').$expand_path("../../", "lib/qha-block-processor/extension.rb");
       head.$add_child("" + "<script type=\"text/x-mathjax-config\">\n" + "MathJax.Hub.Config({\n" + "  \"messageStyle\": \"none\",\n" + "  \"tex2jax\": {\n" + "    \"inlineMath\": [\n" + "      [\n" + "        \"\\(\",\n" + "        \"\\)\"\n" + "      ]\n" + "    ],\n" + "    \"displayMath\": [\n" + "      [\n" + "        \"\\[\",\n" + "        \"\\]\"\n" + "      ]\n" + "    ],\n" + "    \"ignoreClass\": \"nostem|nolatexmath\"\n" + "  },\n" + "  \"asciimath2jax\": {\n" + "    \"delimiters\": [\n" + "      [\n" + "        \"\\$\",\n" + "        \"\\$\"\n" + "      ]\n" + "    ],\n" + "    \"ignoreClass\": \"nostem|noasciimath\"\n" + "  },\n" + "  \"TeX\": {\n" + "    \"equationNumbers\": {\n" + "      \"autoNumber\": \"none\"\n" + "    }\n" + "  }\n" + "})\n" + "</script>\n");
       head.$add_child("    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML\" />\n");
-      $send($$($nesting, 'File'), 'open', ["" + (basedir) + "/css/exercise.css"], ($$2 = function(file){var self = $$2.$$s == null ? this : $$2.$$s;
-
-
-
-        if (file == null) {
-          file = nil;
-        };
-        return head.$add_child("" + "      <style id=\"quiz-question\">\n" + "        " + (file.$read()) + "\n" + "      </style>\n");}, $$2.$$s = self, $$2.$$arity = 1, $$2));
+      self.$inject_stylesheet(head, $$($nesting, 'File').$join(basedir, "css", "exercise.css"));
+      self.$inject_stylesheet(head, $$($nesting, 'File').$join(basedir, "css", "quizQuestion.css"));
       self.$inject_script(head, $$($nesting, 'File').$join(basedir, "js", "exercise.js"));
       self.$inject_script(head, $$($nesting, 'File').$join(basedir, "js", "quizQuestion.js"));
-      $send($$($nesting, 'File'), 'open', ["" + (basedir) + "/js/exercise.js"], ($$3 = function(file){var self = $$3.$$s == null ? this : $$3.$$s;
+      $send($$($nesting, 'File'), 'open', ["" + (basedir) + "/js/exercise.js"], ($$2 = function(file){var self = $$2.$$s == null ? this : $$2.$$s;
 
-
-
+      
+        
         if (file == null) {
           file = nil;
         };
-        return doc.$at_css("body").$add_child("" + "<script type=\"text/javascript\">\n" + "\n" + "function ready(callbackFunc) {\n" + "  if (document.readyState !== 'loading') {\n" + "    // Document is already ready, call the callback directly\n" + "    callbackFunc();\n" + "  } else if (document.addEventListener) {\n" + "    // All modern browsers to register DOMContentLoaded\n" + "    document.addEventListener('DOMContentLoaded', callbackFunc);\n" + "  } else {\n" + "    // Old IE browsers\n" + "    document.attachEvent('onreadystatechange', function() {\n" + "      if (document.readyState === 'complete') {\n" + "        callbackFunc();\n" + "      }\n" + "    });\n" + "  }\n" + "}\n" + "\n" + "ready(function () {\n" + "  Exercise.replaceHints();\n" + "  window.question = new QuizQuestion();\n" + "  if (window.MathJax) {\n" + "    window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub]);\n" + "  }\n" + "});\n" + "\n" + "function onLoad() {};\n" + "\n" + "                    </script>\n");}, $$3.$$s = self, $$3.$$arity = 1, $$3));
+        return doc.$at_css("body").$add_child("" + "<script type=\"text/javascript\">\n" + "\n" + "function ready(callbackFunc) {\n" + "  if (document.readyState !== 'loading') {\n" + "    // Document is already ready, call the callback directly\n" + "    callbackFunc();\n" + "  } else if (document.addEventListener) {\n" + "    // All modern browsers to register DOMContentLoaded\n" + "    document.addEventListener('DOMContentLoaded', callbackFunc);\n" + "  } else {\n" + "    // Old IE browsers\n" + "    document.attachEvent('onreadystatechange', function() {\n" + "      if (document.readyState === 'complete') {\n" + "        callbackFunc();\n" + "      }\n" + "    });\n" + "  }\n" + "}\n" + "\n" + "ready(function () {\n" + "  Exercise.replaceHints();\n" + "  window.question = new QuizQuestion();\n" + "  if (window.MathJax) {\n" + "    window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub]);\n" + "  }\n" + "});\n" + "\n" + "function onLoad() {};\n" + "\n" + "                    </script>\n");}, $$2.$$s = self, $$2.$$arity = 1, $$2));
       return doc.$to_html();
     }, $InjectScriptAndStyle_process$1.$$arity = 2);
-    return (Opal.def(self, '$inject_script', $InjectScriptAndStyle_inject_script$4 = function $$inject_script(head, js_filename) {
-      var $$5, self = this;
+    
+    Opal.def(self, '$inject_script', $InjectScriptAndStyle_inject_script$3 = function $$inject_script(head, js_filename) {
+      var $$4, self = this;
 
-      return $send($$($nesting, 'File'), 'open', [js_filename], ($$5 = function(file){var self = $$5.$$s == null ? this : $$5.$$s;
+      return $send($$($nesting, 'File'), 'open', [js_filename], ($$4 = function(file){var self = $$4.$$s == null ? this : $$4.$$s;
 
-
-
+      
+        
         if (file == null) {
           file = nil;
         };
-        return head.$add_child("" + "<script type=\"text/javascript\">\n" + "  " + (file.$read()) + "\n" + "</script>\n");}, $$5.$$s = self, $$5.$$arity = 1, $$5))
-    }, $InjectScriptAndStyle_inject_script$4.$$arity = 2), nil) && 'inject_script';
+        return head.$add_child("" + "<script type=\"text/javascript\">\n" + "  " + (file.$read()) + "\n" + "</script>\n");}, $$4.$$s = self, $$4.$$arity = 1, $$4))
+    }, $InjectScriptAndStyle_inject_script$3.$$arity = 2);
+    return (Opal.def(self, '$inject_stylesheet', $InjectScriptAndStyle_inject_stylesheet$5 = function $$inject_stylesheet(head, css_filename) {
+      var $$6, self = this;
+
+      return $send($$($nesting, 'File'), 'open', [css_filename], ($$6 = function(file){var self = $$6.$$s == null ? this : $$6.$$s;
+
+      
+        
+        if (file == null) {
+          file = nil;
+        };
+        return head.$add_child("" + "<style type=\"text/css\">\n" + "  " + (file.$read()) + "\n" + "</style>\n");}, $$6.$$s = self, $$6.$$arity = 1, $$6))
+    }, $InjectScriptAndStyle_inject_stylesheet$5.$$arity = 2), nil) && 'inject_stylesheet';
   })($nesting[0], $$$($$$($$($nesting, 'Asciidoctor'), 'Extensions'), 'Postprocessor'), $nesting);
   (function($base, $parent_nesting) {
     var self = $module($base, 'CoreExtensions');
@@ -91,31 +98,31 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
       (function($base, $parent_nesting) {
         var self = $module($base, 'AbstractBlock');
 
-        var $nesting = [self].concat($parent_nesting), $AbstractBlock_find_by_internal$6;
+        var $nesting = [self].concat($parent_nesting), $AbstractBlock_find_by_internal$7;
 
-        self.$protected((Opal.def(self, '$find_by_internal', $AbstractBlock_find_by_internal$6 = function $$find_by_internal(selector, result) {
-          var $iter = $AbstractBlock_find_by_internal$6.$$p, block = $iter || nil, $a, $b, $c, $d, self = this, any_context = nil, context_selector = nil, style_selector = nil, role_selector = nil, id_selector = nil, verdict = nil, $case = nil;
+        self.$protected((Opal.def(self, '$find_by_internal', $AbstractBlock_find_by_internal$7 = function $$find_by_internal(selector, result) {
+          var $iter = $AbstractBlock_find_by_internal$7.$$p, block = $iter || nil, $a, $b, $c, $d, self = this, any_context = nil, context_selector = nil, style_selector = nil, role_selector = nil, id_selector = nil, verdict = nil, $case = nil;
           if (self.context == null) self.context = nil;
           if (self.style == null) self.style = nil;
           if (self.id == null) self.id = nil;
 
-          if ($iter) $AbstractBlock_find_by_internal$6.$$p = null;
-
-
-          if ($iter) $AbstractBlock_find_by_internal$6.$$p = null;;
-
+          if ($iter) $AbstractBlock_find_by_internal$7.$$p = null;
+          
+          
+          if ($iter) $AbstractBlock_find_by_internal$7.$$p = null;;
+          
           if (selector == null) {
             selector = $hash2([], {});
           };
-
+          
           if (result == null) {
             result = [];
           };
           if ($truthy(($truthy($a = ($truthy($b = ($truthy($c = ($truthy($d = (any_context = (context_selector = selector['$[]']("context"))['$!']())) ? $d : context_selector['$=='](self.context))) ? ($truthy($d = (style_selector = selector['$[]']("style"))['$!']()) ? $d : style_selector['$=='](self.style)) : $c)) ? ($truthy($c = (role_selector = selector['$[]']("role"))['$!']()) ? $c : self['$has_role?'](role_selector)) : $b)) ? ($truthy($b = (id_selector = selector['$[]']("id"))['$!']()) ? $b : id_selector['$=='](self.id)) : $a))) {
             if ($truthy(id_selector)) {
-
+              
               result.$replace((function() {if ((block !== nil)) {
-
+                
                 if ($truthy(Opal.yield1(block, self))) {
                   return [self]
                 } else {
@@ -142,55 +149,55 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
           } else {
             return nil
           };
-        }, $AbstractBlock_find_by_internal$6.$$arity = -1), nil) && 'find_by_internal')
+        }, $AbstractBlock_find_by_internal$7.$$arity = -1), nil) && 'find_by_internal')
       })($nesting[0], $nesting)
     })($nesting[0], $nesting)
   })($nesting[0], $nesting);
   (function($base, $super, $parent_nesting) {
     var self = $klass($base, $super, 'Numeric');
 
-    var $nesting = [self].concat($parent_nesting), $Numeric_alph$7;
+    var $nesting = [self].concat($parent_nesting), $Numeric_alph$8;
 
-
+    
     Opal.const_set($nesting[0], 'Alph', $range("A", "Z", false).$to_a());
-    return (Opal.def(self, '$alph', $Numeric_alph$7 = function $$alph() {
+    return (Opal.def(self, '$alph', $Numeric_alph$8 = function $$alph() {
       var $a, $b, $c, self = this, s = nil, q = nil, r = nil;
 
-
+      
       $a = ["", self], (s = $a[0]), (q = $a[1]), $a;
       while ($truthy(true)) {
-
-
+        
+        
         $c = $rb_minus(q, 1).$divmod(26), $b = Opal.to_ary($c), (q = ($b[0] == null ? nil : $b[0])), (r = ($b[1] == null ? nil : $b[1])), $c;;
         s = $rb_plus($$($nesting, 'Alph')['$[]'](r), s);
         if ($truthy(q['$zero?']())) {
           break;};
       };
       return s;
-    }, $Numeric_alph$7.$$arity = 0), nil) && 'alph';
+    }, $Numeric_alph$8.$$arity = 0), nil) && 'alph';
   })($nesting[0], null, $nesting);
   $$($nesting, 'AbstractBlock').$include($$$($$$($$($nesting, 'CoreExtensions'), 'Asciidoctor'), 'AbstractBlock'));
   (function($base, $super, $parent_nesting) {
     var self = $klass($base, $super, 'QuestionHintAnswerTreeprocessor');
 
-    var $nesting = [self].concat($parent_nesting), $QuestionHintAnswerTreeprocessor_process$8, $QuestionHintAnswerTreeprocessor_get_and_tally_counter_of$14, $QuestionHintAnswerTreeprocessor_attr_of$15;
+    var $nesting = [self].concat($parent_nesting), $QuestionHintAnswerTreeprocessor_process$9, $QuestionHintAnswerTreeprocessor_get_and_tally_counter_of$15, $QuestionHintAnswerTreeprocessor_attr_of$16;
 
+    
+    
+    Opal.def(self, '$process', $QuestionHintAnswerTreeprocessor_process$9 = function $$process(document) {
+      var $$10, $$11, self = this, initial_chapter = nil, chapter_section_level = nil, counter = nil, seen = nil;
 
+      
+      initial_chapter = $send(self, 'attr_of', [document, "autoxref-chapter"], ($$10 = function(){var self = $$10.$$s == null ? this : $$10.$$s;
 
-    Opal.def(self, '$process', $QuestionHintAnswerTreeprocessor_process$8 = function $$process(document) {
-      var $$9, $$10, self = this, initial_chapter = nil, chapter_section_level = nil, counter = nil, seen = nil;
-
-
-      initial_chapter = $send(self, 'attr_of', [document, "autoxref-chapter"], ($$9 = function(){var self = $$9.$$s == null ? this : $$9.$$s;
-
-      return 1}, $$9.$$s = self, $$9.$$arity = 0, $$9));
+      return 1}, $$10.$$s = self, $$10.$$arity = 0, $$10));
       chapter_section_level = document.$attr("qha-chaptersectlevel", 1).$to_i();
       counter = $hash2(["chapter", "section", "question"], {"chapter": initial_chapter, "section": 1, "question": 1});
       seen = false;
-      $send(document.$find_by($hash2(["context"], {"context": "section"})), 'each', [], ($$10 = function(chapter){var self = $$10.$$s == null ? this : $$10.$$s, $a, $$11, $$12, chap = nil;
+      $send(document.$find_by($hash2(["context"], {"context": "section"})), 'each', [], ($$11 = function(chapter){var self = $$11.$$s == null ? this : $$11.$$s, $a, $$12, $$13, chap = nil;
 
-
-
+      
+        
         if (chapter == null) {
           chapter = nil;
         };
@@ -201,72 +208,72 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
         seen = true;
         if ($truthy(chapter.$level()['$!='](chapter_section_level))) {
           chapter = document};
-        chap = $send(self, 'attr_of', [chapter, "qha-chapter"], ($$11 = function(){var self = $$11.$$s == null ? this : $$11.$$s;
+        chap = $send(self, 'attr_of', [chapter, "qha-chapter"], ($$12 = function(){var self = $$12.$$s == null ? this : $$12.$$s;
 
-        return self.$get_and_tally_counter_of("chapter", counter)}, $$11.$$s = self, $$11.$$arity = 0, $$11));
+        return self.$get_and_tally_counter_of("chapter", counter)}, $$12.$$s = self, $$12.$$arity = 0, $$12));
         counter.$update($hash2(["section", "question"], {"section": 1, "question": 1}));
-        return $send(["question"], 'each', [], ($$12 = function(type){var self = $$12.$$s == null ? this : $$12.$$s, $$13;
+        return $send(["question"], 'each', [], ($$13 = function(type){var self = $$13.$$s == null ? this : $$13.$$s, $$14;
 
-
-
+        
+          
           if (type == null) {
             type = nil;
           };
-          return $send(chapter.$find_by($hash2(["role"], {"role": type})), 'each', [], ($$13 = function(el){var self = $$13.$$s == null ? this : $$13.$$s, replaced = nil, replaced_caption = nil, $writer = nil;
+          return $send(chapter.$find_by($hash2(["role"], {"role": type})), 'each', [], ($$14 = function(el){var self = $$14.$$s == null ? this : $$14.$$s, replaced = nil, replaced_caption = nil, $writer = nil;
 
-
-
+          
+            
             if (el == null) {
               el = nil;
             };
             if ($truthy(el['$title?']())) {
-
+              
               replaced = self.$get_and_tally_counter_of(type, counter).$alph();
               replaced_caption = $rb_plus(replaced, " ");
-
+              
               $writer = [replaced];
               $send(el, 'title=', Opal.to_a($writer));
               $writer[$rb_minus($writer["length"], 1)];;
-
+              
               $writer = ["id", (($writer = ["" + (chapter.$id()) + "_q" + (counter['$[]']("question"))]), $send(el, 'id=', Opal.to_a($writer)), $writer[$rb_minus($writer["length"], 1)])];
               $send(el.$attributes(), '[]=', Opal.to_a($writer));
               $writer[$rb_minus($writer["length"], 1)];;
-
+              
               $writer = ["caption", replaced_caption];
               $send(el.$attributes(), '[]=', Opal.to_a($writer));
               $writer[$rb_minus($writer["length"], 1)];;
-
+              
               $writer = [replaced_caption];
               $send(el, 'caption=', Opal.to_a($writer));
               $writer[$rb_minus($writer["length"], 1)];;
-
+              
               $writer = [el.$attributes()['$[]']("id"), replaced];
               $send(document.$references()['$[]']("ids"), '[]=', Opal.to_a($writer));
               return $writer[$rb_minus($writer["length"], 1)];;
             } else {
               return nil
-            };}, $$13.$$s = self, $$13.$$arity = 1, $$13));}, $$12.$$s = self, $$12.$$arity = 1, $$12));}, $$10.$$s = self, $$10.$$arity = 1, $$10));
+            };}, $$14.$$s = self, $$14.$$arity = 1, $$14));}, $$13.$$s = self, $$13.$$arity = 1, $$13));}, $$11.$$s = self, $$11.$$arity = 1, $$11));
       return nil;
-    }, $QuestionHintAnswerTreeprocessor_process$8.$$arity = 1);
-
-    Opal.def(self, '$get_and_tally_counter_of', $QuestionHintAnswerTreeprocessor_get_and_tally_counter_of$14 = function $$get_and_tally_counter_of(type, counter) {
+    }, $QuestionHintAnswerTreeprocessor_process$9.$$arity = 1);
+    
+    Opal.def(self, '$get_and_tally_counter_of', $QuestionHintAnswerTreeprocessor_get_and_tally_counter_of$15 = function $$get_and_tally_counter_of(type, counter) {
       var self = this, t = nil, $writer = nil;
 
-
+      
       t = counter['$[]'](type);
-
+      
       $writer = [type, $rb_plus(counter['$[]'](type), 1)];
       $send(counter, '[]=', Opal.to_a($writer));
       $writer[$rb_minus($writer["length"], 1)];;
       return t;
-    }, $QuestionHintAnswerTreeprocessor_get_and_tally_counter_of$14.$$arity = 2);
-    return (Opal.def(self, '$attr_of', $QuestionHintAnswerTreeprocessor_attr_of$15 = function $$attr_of(target, key) {
-      var $iter = $QuestionHintAnswerTreeprocessor_attr_of$15.$$p, default$ = $iter || nil, self = this;
+    }, $QuestionHintAnswerTreeprocessor_get_and_tally_counter_of$15.$$arity = 2);
+    return (Opal.def(self, '$attr_of', $QuestionHintAnswerTreeprocessor_attr_of$16 = function $$attr_of(target, key) {
+      var $iter = $QuestionHintAnswerTreeprocessor_attr_of$16.$$p, default$ = $iter || nil, self = this;
 
-      if ($iter) $QuestionHintAnswerTreeprocessor_attr_of$15.$$p = null;
-
-
-      if ($iter) $QuestionHintAnswerTreeprocessor_attr_of$15.$$p = null;;
+      if ($iter) $QuestionHintAnswerTreeprocessor_attr_of$16.$$p = null;
+      
+      
+      if ($iter) $QuestionHintAnswerTreeprocessor_attr_of$16.$$p = null;;
       try {
         return target.$attr(key, "none").$to_i()
       } catch ($err) {
@@ -280,36 +287,36 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
           } finally { Opal.pop_exception() }
         } else { throw $err; }
       };
-    }, $QuestionHintAnswerTreeprocessor_attr_of$15.$$arity = 2), nil) && 'attr_of';
+    }, $QuestionHintAnswerTreeprocessor_attr_of$16.$$arity = 2), nil) && 'attr_of';
   })($nesting[0], $$$($$($nesting, 'Extensions'), 'Treeprocessor'), $nesting);
   (function($base, $super, $parent_nesting) {
     var self = $klass($base, $super, 'PodcastBlockMacro');
 
-    var $nesting = [self].concat($parent_nesting), $PodcastBlockMacro_process$16;
+    var $nesting = [self].concat($parent_nesting), $PodcastBlockMacro_process$17;
 
-
+    
     self.$use_dsl();
     self.$named("podcast");
-    return (Opal.def(self, '$process', $PodcastBlockMacro_process$16 = function $$process(parent, target, attrs) {
+    return (Opal.def(self, '$process', $PodcastBlockMacro_process$17 = function $$process(parent, target, attrs) {
       var self = this, html = nil;
 
-
+      
       html = "" + "<div class=\"openblock podcast\">\n" + "<pre>" + (target) + "</pre>\n" + "</div>";
       return self.$create_pass_block(parent, html, attrs, $hash2(["subs"], {"subs": nil}));
-    }, $PodcastBlockMacro_process$16.$$arity = 3), nil) && 'process';
+    }, $PodcastBlockMacro_process$17.$$arity = 3), nil) && 'process';
   })($nesting[0], $$$($$($nesting, 'Extensions'), 'BlockMacroProcessor'), $nesting);
   (function($base, $super, $parent_nesting) {
-    var self = $klass($base, $super, 'AnswerBlockMacro');
+    var self = $klass($base, $super, 'QuizAnswerBlockMacro');
 
-    var $nesting = [self].concat($parent_nesting), $AnswerBlockMacro_process$17;
+    var $nesting = [self].concat($parent_nesting), $QuizAnswerBlockMacro_process$18;
 
-
+    
     self.$use_dsl();
     self.$named("answer");
-    return (Opal.def(self, '$process', $AnswerBlockMacro_process$17 = function $$process(parent, target, attrs) {
+    return (Opal.def(self, '$process', $QuizAnswerBlockMacro_process$18 = function $$process(parent, target, attrs) {
       var $a, $b, $c, $d, self = this, root = nil, display = nil, answer = nil, parent_kind = nil, mode = nil, $writer = nil, html = nil;
 
-
+      
       root = self.$create_block(parent, "pass", $hash2([], {}), $hash2(["type"], {"type": "answer"}));
       display = attrs['$[]'](1);
       answer = attrs['$[]'](2);
@@ -326,21 +333,21 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
       }; return nil; })();
       if ($truthy(($b = ($a = root.$blocks()['$[]'](0), ($a === nil || $a == null) ? nil : $send($a, 'blocks', [])), ($b === nil || $b == null) ? nil : $send($b, '[]', [0]))['$nil?']())) {
       } else {
-
+        
         $writer = ["role", "quiz-display-text "];
         $send(root.$blocks()['$[]'](0).$blocks()['$[]'](0).$attributes(), '[]=', Opal.to_a($writer));
         $writer[$rb_minus($writer["length"], 1)];
       };
       if ($truthy(($d = ($c = root.$blocks()['$[]'](1), ($c === nil || $c == null) ? nil : $send($c, 'blocks', [])), ($d === nil || $d == null) ? nil : $send($d, '[]', [0]))['$nil?']())) {
       } else {
-
+        
         $writer = ["role", "quiz-answer-text"];
         $send(root.$blocks()['$[]'](1).$blocks()['$[]'](0).$attributes(), '[]=', Opal.to_a($writer));
         $writer[$rb_minus($writer["length"], 1)];
       };
-      html = "" + "\n" + "    <div class=\"answer " + ((function() {if ($truthy(mode)) {
-
-        return $rb_plus("answer-", mode);
+      html = "" + "\n" + "    <div class=\"quiz-answer " + ((function() {if ($truthy(mode)) {
+        
+        return $rb_plus("quiz-answer-", mode);
       } else {
         return ""
       }; return nil; })()) + "\">\n" + "      <label> <input type=\"" + ((function() {if (parent_kind['$==']("mc")) {
@@ -349,75 +356,75 @@ Opal.modules["lib/qha-block-processor/extension"] = function(Opal) {
         return "checkbox"
       }; return nil; })()) + "\"> " + (root.$blocks()['$[]'](0).$content()) + " </label>\n" + "      <span> " + (root.$blocks()['$[]'](1).$content()) + " </span>\n" + "    </div>\n" + "    ";
       return self.$create_block(parent, "pass", html, $hash2(["type", "role"], {"type": "answer", "role": mode}));
-    }, $AnswerBlockMacro_process$17.$$arity = 3), nil) && 'process';
+    }, $QuizAnswerBlockMacro_process$18.$$arity = 3), nil) && 'process';
   })($nesting[0], $$$($$($nesting, 'Extensions'), 'BlockMacroProcessor'), $nesting);
-  return $send($$($nesting, 'Extensions'), 'register', ["qha"], ($$18 = function(){var self = $$18.$$s == null ? this : $$18.$$s, $$19;
+  return $send($$($nesting, 'Extensions'), 'register', ["qha"], ($$19 = function(){var self = $$19.$$s == null ? this : $$19.$$s, $$20;
 
-
+  
     self.$block_macro($$($nesting, 'PodcastBlockMacro'));
-    self.$block_macro($$($nesting, 'AnswerBlockMacro'));
+    self.$block_macro($$($nesting, 'QuizAnswerBlockMacro'));
     self.$tree_processor($$($nesting, 'QuestionHintAnswerTreeprocessor'));
     if ($$($nesting, 'RUBY_ENGINE')['$==']("opal")) {
     } else {
       nil
     };
-    return $send(["question", "hint", "answer"], 'each', [], ($$19 = function(el_type){var self = $$19.$$s == null ? this : $$19.$$s, $$20;
+    return $send(["question", "hint", "answer"], 'each', [], ($$20 = function(el_type){var self = $$20.$$s == null ? this : $$20.$$s, $$21;
 
-
-
+    
+      
       if (el_type == null) {
         el_type = nil;
       };
-      return $send(self, 'block', [], ($$20 = function(){var self = $$20.$$s == null ? this : $$20.$$s, $$21;
+      return $send(self, 'block', [], ($$21 = function(){var self = $$21.$$s == null ? this : $$21.$$s, $$22;
 
-
+      
         self.$named(el_type);
         self.$on_context("literal");
         self.$parse_content_as("raw");
-        return $send(self, 'process', [], ($$21 = function(parent, reader, attrs){var self = $$21.$$s == null ? this : $$21.$$s, $$22, result_lines = nil, through_attrs = nil, content = nil, wrapper = nil, $writer = nil;
+        return $send(self, 'process', [], ($$22 = function(parent, reader, attrs){var self = $$22.$$s == null ? this : $$22.$$s, $$23, result_lines = nil, through_attrs = nil, content = nil, wrapper = nil, $writer = nil;
 
-
-
+        
+          
           if (parent == null) {
             parent = nil;
           };
-
+          
           if (reader == null) {
             reader = nil;
           };
-
+          
           if (attrs == null) {
             attrs = nil;
           };
           result_lines = reader.$source().$chomp().$split("\n");
-          through_attrs = $send(["id", "role", "title"], 'inject', [$hash2([], {})], ($$22 = function(collector, key){var self = $$22.$$s == null ? this : $$22.$$s, $writer = nil;
+          through_attrs = $send(["id", "role", "title"], 'inject', [$hash2([], {})], ($$23 = function(collector, key){var self = $$23.$$s == null ? this : $$23.$$s, $writer = nil;
 
-
-
+          
+            
             if (collector == null) {
               collector = nil;
             };
-
+            
             if (key == null) {
               key = nil;
             };
             if ($truthy(attrs['$has_key?'](key))) {
-
+              
               $writer = [key, attrs['$[]'](key)];
               $send(collector, '[]=', Opal.to_a($writer));
               $writer[$rb_minus($writer["length"], 1)];};
-            return collector;}, $$22.$$s = self, $$22.$$arity = 2, $$22)).$merge($hash2(["role"], {"role": el_type.$to_s()}));
+            return collector;}, $$23.$$s = self, $$23.$$arity = 2, $$23)).$merge($hash2(["role"], {"role": el_type.$to_s()}));
           content = result_lines;
           wrapper = self.$create_open_block(parent, content, through_attrs);
-
+          
           $writer = [el_type.$to_s()];
           $send(wrapper, 'style=', Opal.to_a($writer));
           $writer[$rb_minus($writer["length"], 1)];;
-
+          
           $writer = [el_type.$to_s()['$[]'](0)];
           $send(wrapper, 'title=', Opal.to_a($writer));
           $writer[$rb_minus($writer["length"], 1)];;
-          return wrapper;}, $$21.$$s = self, $$21.$$arity = 3, $$21));}, $$20.$$s = self, $$20.$$arity = 0, $$20));}, $$19.$$s = self, $$19.$$arity = 1, $$19));}, $$18.$$s = self, $$18.$$arity = 0, $$18));
+          return wrapper;}, $$22.$$s = self, $$22.$$arity = 3, $$22));}, $$21.$$s = self, $$21.$$arity = 0, $$21));}, $$20.$$s = self, $$20.$$arity = 1, $$20));}, $$19.$$s = self, $$19.$$arity = 0, $$19));
 };
 
 /* Generated by Opal 1.0.0 */
@@ -447,7 +454,7 @@ Opal.modules["lib/quiz/extensions"] = function(Opal) {
   var self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $hash2 = Opal.hash2;
 
   Opal.add_stubs(['$==', '$use_dsl', '$option', '$+', '$next_block', '$new', '$push', '$blocks', '$process_error', '$[]']);
-
+  
   if ($$($nesting, 'RUBY_ENGINE')['$==']("opal")) {
   } else {
     nil
@@ -477,26 +484,26 @@ Opal.modules["lib/quiz/extensions"] = function(Opal) {
 
           var $nesting = [self].concat($parent_nesting), $BaseProcessor_inherited$1, $BaseProcessor_process_error$2, $BaseProcessor_process_error_push$3, $BaseProcessor_post_answers$4;
 
-
+          
           self.$use_dsl();
           Opal.defs(self, '$inherited', $BaseProcessor_inherited$1 = function $$inherited(subclass) {
             var self = this;
 
-
+            
             subclass.$option("contexts", ["example", "literal", "open"]);
             return subclass.$option("content_model", "simple");
           }, $BaseProcessor_inherited$1.$$arity = 1);
-
+          
           Opal.def(self, '$process_error', $BaseProcessor_process_error$2 = function $$process_error(parent, err, source_lines) {
             var self = this, lines = nil, block = nil;
 
-
+            
             lines = ["[NOTE]", "====", $rb_plus("Error ", err), "===="];
             block = $$$($$($nesting, 'Asciidoctor'), 'Parser').$next_block($$$($$($nesting, 'Asciidoctor'), 'Reader').$new(lines), parent);
             block.$blocks().$push($$$($$($nesting, 'Asciidoctor'), 'Parser').$next_block($$$($$($nesting, 'Asciidoctor'), 'Reader').$new($rb_plus($rb_plus(["[source, asciidoc]", "----"], source_lines), ["----"])), block));
             return block;
           }, $BaseProcessor_process_error$2.$$arity = 3);
-
+          
           Opal.def(self, '$process_error_push', $BaseProcessor_process_error_push$3 = function $$process_error_push(parent, err, source_lines) {
             var self = this;
 
@@ -505,9 +512,9 @@ Opal.modules["lib/quiz/extensions"] = function(Opal) {
           return (Opal.def(self, '$post_answers', $BaseProcessor_post_answers$4 = function $$post_answers(parent, tag) {
             var self = this, id = nil;
 
-
+            
             id = tag['$[]']("id");
-            parent.$blocks().$push($$$($$($nesting, 'Asciidoctor'), 'Block').$new(parent, "pass", $hash2(["source"], {"source": "" + "\n" + "            <p style=\"margin-bottom: 25px\">\n" + "              <button onclick='QuizQuestion.resolve(" + (id) + ")'>resolve</button>\n" + "              <button onclick='QuizQuestion.reset(" + (id) + ")'>reset</button>\n" + "            </p>"})));
+            parent.$blocks().$push($$$($$($nesting, 'Asciidoctor'), 'Block').$new(parent, "pass", $hash2(["source"], {"source": "" + "\n" + "            <p style=\"margin-bottom: 25px\">\n" + "              <button onclick='QuizQuestion.resolve(" + (id) + ")' class=\"quiz-question-button quiz-question-resolve-button\">Resolve</button>\n" + "              <button onclick='QuizQuestion.reset(" + (id) + ")' class=\"quiz-question-button quiz-question-reset-button\">Reset</button>\n" + "            </p>"})));
             return parent;
           }, $BaseProcessor_post_answers$4.$$arity = 2), nil) && 'post_answers';
         })($nesting[0], $$$($$$($$($nesting, 'Asciidoctor'), 'Extensions'), 'BlockProcessor'), $nesting)
@@ -527,7 +534,7 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
   var self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $hash2 = Opal.hash2, $send = Opal.send;
 
   Opal.add_stubs(['$name_positional_attributes', '$[]', '$==', '$nil?', '$raise', '$new', '$+', '$[]=', '$-', '$lines', '$parse_content', '$partition', '$blocks', '$attributes', '$each', '$<<', '$create_list', '$create_list_item', '$post_answers', '$ap', '$backtrace', '$process_error_push', '$message', '$delete', '$map!', '$=~', '$sub']);
-
+  
   self.$require("lib/quiz/multiple_choice/extension.rb"+ '/../' + "../extensions");
   return (function($base, $parent_nesting) {
     var self = $module($base, 'Asciidoctor');
@@ -539,19 +546,19 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
 
       var $nesting = [self].concat($parent_nesting);
 
-
+      
       (function($base, $super, $parent_nesting) {
         var self = $klass($base, $super, 'MultipleChoiceBlockProcessor');
 
         var $nesting = [self].concat($parent_nesting), $MultipleChoiceBlockProcessor_process$1;
 
-
+        
         self.$name_positional_attributes(["type", "shuffle"]);
         return (Opal.def(self, '$process', $MultipleChoiceBlockProcessor_process$1 = function $$process(parent, source, tag) {
           var $a, $b, $$2, $$3, $$4, self = this, id = nil, kind = nil, attrs = nil, $writer = nil, parser = nil, reader = nil, answers = nil, questions = nil, qanda = nil, answer_list = nil, err = nil, new_parent = nil;
 
           try {
-
+            
             id = tag['$[]']("id");
             if (tag['$[]'](2)['$==']("multiple_choice")) {
               kind = "mc"};
@@ -562,7 +569,7 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
             attrs = $hash2(["id", "role"], {"id": "" + "quiz-question_" + (id) + "_type=" + (kind), "role": "" + "quiz-question-" + (kind) + " quiz-question"});
             if ($truthy(tag['$[]']("shuffle")['$nil?']())) {
             } else {
-
+              
               $writer = ["id", $rb_plus(attrs['$[]']("id"), "_shuffle=shuffle")];
               $send(attrs, '[]=', Opal.to_a($writer));
               $writer[$rb_minus($writer["length"], 1)];
@@ -572,8 +579,8 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
             self.$parse_content(parser, reader, $hash2(["parent_kind"], {"parent_kind": kind}));
             $b = $send(parser.$blocks(), 'partition', [], ($$2 = function(block){var self = $$2.$$s == null ? this : $$2.$$s, $c, $d;
 
-
-
+            
+              
               if (block == null) {
                 block = nil;
               };
@@ -581,8 +588,8 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
             qanda = $$$($$($nesting, 'Asciidoctor'), 'Block').$new(parent, "open", $hash2(["attributes"], {"attributes": attrs}));
             $send(questions, 'each', [], ($$3 = function(question){var self = $$3.$$s == null ? this : $$3.$$s;
 
-
-
+            
+              
               if (question == null) {
                 question = nil;
               };
@@ -590,8 +597,8 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
             answer_list = self.$create_list(qanda, "olist", $hash2(["id", "role"], {"id": "foo", "role": "" + "quiz-question-" + (kind)}));
             $send(answers, 'each', [], ($$4 = function(answer){var self = $$4.$$s == null ? this : $$4.$$s, li = nil;
 
-
-
+            
+              
               if (answer == null) {
                 answer = nil;
               };
@@ -605,7 +612,7 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
           } catch ($err) {
             if (Opal.rescue($err, [$$($nesting, 'StandardError')])) {err = $err;
               try {
-
+                
                 self.$ap(err.$backtrace());
                 new_parent = $$$($$($nesting, 'Asciidoctor'), 'Block').$new(parent, "open");
                 self.$process_error_push(new_parent, err.$message(), source.$lines());
@@ -620,8 +627,8 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
 
         var $nesting = [self].concat($parent_nesting), $PDFMultipleChoiceBlockProcessor_prepare_answers$5, $PDFMultipleChoiceBlockProcessor_post_answers$7;
 
-
-
+        
+        
         Opal.def(self, '$prepare_answers', $PDFMultipleChoiceBlockProcessor_prepare_answers$5 = function $$prepare_answers(answers_block, tag) {
           var $$6, $iter = $PDFMultipleChoiceBlockProcessor_prepare_answers$5.$$p, $yield = $iter || nil, self = this, $zuper = nil, $zuper_i = nil, $zuper_ii = nil;
 
@@ -630,14 +637,14 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
           for($zuper_i = 0, $zuper_ii = arguments.length, $zuper = new Array($zuper_ii); $zuper_i < $zuper_ii; $zuper_i++) {
             $zuper[$zuper_i] = arguments[$zuper_i];
           }
-
+          
           $send(self, Opal.find_super_dispatcher(self, 'prepare_answers', $PDFMultipleChoiceBlockProcessor_prepare_answers$5, false), $zuper, $iter);
           if ($truthy(tag['$[]']("solution"))) {
           } else {
             $send(answers_block.$blocks(), 'each', [], ($$6 = function(answer){var self = $$6.$$s == null ? this : $$6.$$s;
 
-
-
+            
+              
               if (answer == null) {
                 answer = nil;
               };
@@ -656,16 +663,16 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
 
         var $nesting = [self].concat($parent_nesting), $HTMLMultipleChoiceBlockProcessor_prepare_answer_lines$8, $HTMLMultipleChoiceBlockProcessor_prepare_answers$10;
 
-
-
+        
+        
         Opal.def(self, '$prepare_answer_lines', $HTMLMultipleChoiceBlockProcessor_prepare_answer_lines$8 = function $$prepare_answer_lines(lines) {
           var $$9, self = this;
 
-
+          
           $send(lines, 'map!', [], ($$9 = function(answer){var self = $$9.$$s == null ? this : $$9.$$s;
 
-
-
+          
+            
             if (answer == null) {
               answer = nil;
             };
@@ -679,17 +686,17 @@ Opal.modules["lib/quiz/multiple_choice/extension"] = function(Opal) {
         return (Opal.def(self, '$prepare_answers', $HTMLMultipleChoiceBlockProcessor_prepare_answers$10 = function $$prepare_answers(answers_block, tag) {
           var $$11, self = this, id = nil, aid = nil, $writer = nil;
 
-
+          
           id = tag['$[]']("id");
           aid = -1;
-
+          
           $writer = ["id", "" + "answers_mc_" + (id)];
           $send(answers_block.$attributes(), '[]=', Opal.to_a($writer));
           $writer[$rb_minus($writer["length"], 1)];;
           $send(answers_block.$blocks(), 'each', [], ($$11 = function(answer){var self = $$11.$$s == null ? this : $$11.$$s;
 
-
-
+          
+            
             if (answer == null) {
               answer = nil;
             };
@@ -714,7 +721,7 @@ Opal.modules["lib/quiz/gap/extension"] = function(Opal) {
   var self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $send = Opal.send, $truthy = Opal.truthy, $hash2 = Opal.hash2;
 
   Opal.add_stubs(['$[]', '$lines', '$map!', '$match', '$gsub', '$prepare_gap', '$new', '$loop', '$next_block', '$nil?', '$==', '$context', '$push', '$subs', '$blocks', '$post_answers', '$process_error_push', '$*', '$+', '$size']);
-
+  
   self.$require("lib/quiz/gap/extension.rb"+ '/../' + "../extensions");
   return (function($base, $parent_nesting) {
     var self = $module($base, 'Asciidoctor');
@@ -726,25 +733,25 @@ Opal.modules["lib/quiz/gap/extension"] = function(Opal) {
 
       var $nesting = [self].concat($parent_nesting);
 
-
+      
       (function($base, $super, $parent_nesting) {
         var self = $klass($base, $super, 'GAPBlockProcessor');
 
         var $nesting = [self].concat($parent_nesting), $GAPBlockProcessor_process$1, $GAPBlockProcessor_prepare_gap$5;
 
-
-
+        
+        
         Opal.def(self, '$process', $GAPBlockProcessor_process$1 = function $$process(parent, source, tag) {
           var $$2, $$4, self = this, id = nil, err = nil, question_lines = nil, new_parent = nil, reader = nil;
 
-
+          
           id = tag['$[]']("id");
           err = nil;
           question_lines = source.$lines();
           $send(question_lines, 'map!', [], ($$2 = function(line){var self = $$2.$$s == null ? this : $$2.$$s, $$3;
 
-
-
+          
+            
             if (line == null) {
               line = nil;
             };
@@ -752,8 +759,8 @@ Opal.modules["lib/quiz/gap/extension"] = function(Opal) {
               return nil;};
             return $send(line, 'gsub', [/__([^_]+?)__/], ($$3 = function(value){var self = $$3.$$s == null ? this : $$3.$$s;
 
-
-
+            
+              
               if (value == null) {
                 value = nil;
               };
@@ -762,13 +769,13 @@ Opal.modules["lib/quiz/gap/extension"] = function(Opal) {
           reader = $$$($$($nesting, 'Asciidoctor'), 'Reader').$new(question_lines);
           (function(){var $brk = Opal.new_brk(); try {return $send(self, 'loop', [], ($$4 = function(){var self = $$4.$$s == null ? this : $$4.$$s, block = nil;
 
-
+          
             block = $$$($$($nesting, 'Asciidoctor'), 'Parser').$next_block(reader, new_parent);
             if ($truthy(block['$nil?']())) {
-
+              
               Opal.brk(nil, $brk)};
             if (block.$context()['$==']("listing")) {
-
+              
               block.$subs().$push("macros");
               block.$subs().$push("quotes");};
             return new_parent.$blocks().$push(block);}, $$4.$$s = self, $$4.$$brk = $brk, $$4.$$arity = 0, $$4))
@@ -791,8 +798,8 @@ Opal.modules["lib/quiz/gap/extension"] = function(Opal) {
 
         var $nesting = [self].concat($parent_nesting), $PDFGAPBlockProcessor_prepare_gap$6, $PDFGAPBlockProcessor_post_answers$7;
 
-
-
+        
+        
         Opal.def(self, '$prepare_gap', $PDFGAPBlockProcessor_prepare_gap$6 = function $$prepare_gap(value, tag) {
           var self = this;
 
@@ -834,7 +841,7 @@ Opal.modules["lib/quiz/question/extension"] = function(Opal) {
   var self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $hash2 = Opal.hash2, $send = Opal.send, $truthy = Opal.truthy;
 
   Opal.add_stubs(['$name_positional_attributes', '$freeze', '$+', '$[]=', '$-', '$has_solution', '$include?', '$[]', '$process_question_mc', '$process_question_gap', '$process_error', '$lines', '$!', '$nil?', '$attributes', '$document', '$parent', '$process', '$new']);
-
+  
   self.$require("lib/quiz/question/extension.rb"+ '/../' + "../extensions");
   self.$require("lib/quiz/question/extension.rb"+ '/../' + "../multiple_choice/extension");
   self.$require("lib/quiz/question/extension.rb"+ '/../' + "../gap/extension");
@@ -848,43 +855,43 @@ Opal.modules["lib/quiz/question/extension"] = function(Opal) {
 
       var $nesting = [self].concat($parent_nesting);
 
-
+      
       (function($base, $super, $parent_nesting) {
         var self = $klass($base, $super, 'QuestionBlockProcessor');
 
         var $nesting = [self].concat($parent_nesting), $QuestionBlockProcessor_initialize$1, $QuestionBlockProcessor_process$2, $QuestionBlockProcessor_has_solution$3;
 
-
+        
         self.$name_positional_attributes(["type", "shuffle"]);
         Opal.const_set($nesting[0], 'MULTIPLE_CHOICE_TYPES', ["all_that_apply", "multiple_choice"].$freeze());
         Opal.const_set($nesting[0], 'GAP_TYPES', ["gap"].$freeze());
-
+        
         Opal.def(self, '$initialize', $QuestionBlockProcessor_initialize$1 = function $$initialize(name, config) {
           var $iter = $QuestionBlockProcessor_initialize$1.$$p, $yield = $iter || nil, self = this;
 
           if ($iter) $QuestionBlockProcessor_initialize$1.$$p = null;
-
-
+          
+          
           if (name == null) {
             name = nil;
           };
-
+          
           if (config == null) {
             config = $hash2([], {});
           };
           $send(self, Opal.find_super_dispatcher(self, 'initialize', $QuestionBlockProcessor_initialize$1, false), [name, config], null);
           return (Opal.class_variable_set($nesting[0], '@@id', 0));
         }, $QuestionBlockProcessor_initialize$1.$$arity = -1);
-
+        
         Opal.def(self, '$process', $QuestionBlockProcessor_process$2 = function $$process(parent, source, tag) {
           var $a, self = this, $writer = nil, block = nil;
 
-
-
+          
+          
           $writer = ["id", (Opal.class_variable_set($nesting[0], '@@id', $rb_plus((($a = $nesting[0].$$cvars['@@id']) == null ? nil : $a), 1)))];
           $send(tag, '[]=', Opal.to_a($writer));
           $writer[$rb_minus($writer["length"], 1)];;
-
+          
           $writer = ["solution", self.$has_solution(parent)];
           $send(tag, '[]=', Opal.to_a($writer));
           $writer[$rb_minus($writer["length"], 1)];;
@@ -914,9 +921,9 @@ Opal.modules["lib/quiz/question/extension"] = function(Opal) {
 
         var $nesting = [self].concat($parent_nesting), $HTMLQuestionBlockProcessor_process_question_mc$4, $HTMLQuestionBlockProcessor_process_question_gap$5;
 
-
+        
         self.$name_positional_attributes(["type", "shuffle"]);
-
+        
         Opal.def(self, '$process_question_mc', $HTMLQuestionBlockProcessor_process_question_mc$4 = function $$process_question_mc(parent, source, tag) {
           var self = this;
 
@@ -933,9 +940,9 @@ Opal.modules["lib/quiz/question/extension"] = function(Opal) {
 
         var $nesting = [self].concat($parent_nesting), $PDFQuestionBlockProcessor_process_question_mc$6, $PDFQuestionBlockProcessor_process_question_gap$7;
 
-
+        
         self.$name_positional_attributes(["type", "shuffle"]);
-
+        
         Opal.def(self, '$process_question_mc', $PDFQuestionBlockProcessor_process_question_mc$6 = function $$process_question_mc(parent, source, tag) {
           var self = this;
 
@@ -956,14 +963,14 @@ Opal.modules["lib/quiz/question"] = function(Opal) {
   var $$1, self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice, $send = Opal.send, $truthy = Opal.truthy;
 
   Opal.add_stubs(['$register', '$basebackend?', '$document', '$!', '$==', '$backend', '$block', '$postprocessor']);
-
+  
   self.$require("lib/quiz/question.rb"+ '/../' + "extensions");
   return $send($$$($$($nesting, 'Asciidoctor'), 'Extensions'), 'register', [], ($$1 = function(){var self = $$1.$$s == null ? this : $$1.$$s, $a;
 
-
+  
     self.$require("lib/quiz/question.rb"+ '/../' + "question/extension");
     if ($truthy(($truthy($a = self.$document()['$basebackend?']("html")) ? self.$document().$backend()['$==']("pdf")['$!']() : $a))) {
-
+      
       self.$block($$$($$$($$($nesting, 'Asciidoctor'), 'Question'), 'HTMLQuestionBlockProcessor'), "question");
       self.$postprocessor($$$($$$($$($nesting, 'Asciidoctor'), 'Question'), 'HTMLPostProcessor'));};
     if (self.$document().$backend()['$==']("pdf")) {
@@ -998,15 +1005,15 @@ Opal.modules["lib/quiz/question/post_processor"] = function(Opal) {
 
           return $send($send(output.$split(/\n/), 'reject', [], ($$2 = function(l){var self = $$2.$$s == null ? this : $$2.$$s;
 
-
-
+          
+            
             if (l == null) {
               l = nil;
             };
             return l.$match(/^\s*<p><\/p>\s*$/);}, $$2.$$s = self, $$2.$$arity = 1, $$2)), 'map', [], ($$3 = function(l){var self = $$3.$$s == null ? this : $$3.$$s;
 
-
-
+          
+            
             if (l == null) {
               l = nil;
             };
@@ -1021,7 +1028,7 @@ Opal.modules["lib/quiz/question/post_processor"] = function(Opal) {
 (function(Opal) {
   var self = Opal.top, $nesting = [], nil = Opal.nil, $$$ = Opal.const_get_qualified, $$ = Opal.const_get_relative, $breaker = Opal.breaker, $slice = Opal.slice;
 
-
+  
   self.$require("lib/asciidoctor-dtu-enote.rb"+ '/../' + "qha-block-processor/extension.rb");
   self.$require("lib/asciidoctor-dtu-enote.rb"+ '/../' + "quiz/extensions.rb");
   self.$require("lib/asciidoctor-dtu-enote.rb"+ '/../' + "quiz/question.rb");

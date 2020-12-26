@@ -466,10 +466,171 @@ MathJax.Hub.Config({
 </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 <style type="text/css">
-  
+  .btn-hint, .btn-answer {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 5px 10px;
+    text-align: center; }
+
+.question, .hint, .answer {
+    background-color: #f0f0f0;
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto; }
+
+.hide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden; }
+
+/* directives */
+.question, .hint, .answer {
+    text-align: left;
+    margin: 10px 0 10px 0;
+    width: 100%; }
+
+.question > .content,
+.answer > .content,
+.hint > .content {
+    display: table-cell;
+    padding: 10px 10px 0 10px;
+    margin: auto 0;
+    vertical-align: middle;
+    width: 100%; }
+
+.question > .btn,
+.answer > .btn,
+.hint > .btn {
+    display: none; }
+
+.question, .hint, .answer {
+    border: 1px solid;
+    border-radius: 5px;
+    border-spacing: 0;
+    display: table;
+    margin-top: 5px; }
+
+.answer > .title,
+.hint > .title,
+.question > .title {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+    border-spacing: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 50px;
+    max-width: 24px;
+    min-width: 24px; }
+.answer > .title div,
+.hint > .title div,
+.question > .title div {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+
+.answer.qha-content-hidden,
+.hint.qha-content-hidden {
+    background-color: unset;
+    border: unset; }
+.answer.qha-content-hidden > .title,
+.answer.qha-content-hidden > .content,
+.hint.qha-content-hidden > .title,
+.hint.qha-content-hidden > .content {
+    display: none; }
+.answer.qha-content-hidden > .btn,
+.hint.qha-content-hidden > .btn {
+    text-align: center;
+    display: block;
+    color: white;
+    margin: 0 auto; }
+
+.hide-dependent {
+    display: none; }
+
+.answer.qha-hidden > button,
+.hint.qha-hidden > button {
+    display: block !important; }
+
+.question {
+    background-color: #fffce5;
+    border: 1px #c4a000 solid; }
+.question > .title {
+    background-color: #c4a000;
+    border-right: 1px #c4a000 solid;
+    color: #fffce5; }
+
+.hint {
+    border-color: #5c3566;
+    background-color: #e9dce7;
+    border: 1px #5c3566 solid; }
+.hint > .title {
+    border-right: 1px #5c3566 solid;
+    background-color: #5c3566;
+    color: #e9dce7; }
+
+.answer {
+    position: relative;
+    border-color: #204a87;
+    background-color: #e4edf6;
+    border: 1px #204a87 solid; }
+.answer > .title {
+    border-right: 1px #204a87 solid;
+    background-color: #204a87;
+    color: #e4edf6; }
+
+.btn-hint,
+.btn-hint:hover,
+.btn-hint:active,
+.btn-hint:visited,
+.btn-hint:focus {
+    background-color: #3465a4;
+    border-color: #204a87; }
+
+.btn-answer,
+.btn-answer:hover,
+.btn-answer:active,
+.btn-answer:visited,
+.btn-answer:focus {
+    background-color: #73d216;
+    border-color: #4e9a06; }
+
+/* just because "ANSWER" takes up so much room */
+.answer .directive-region-item-container {
+    height: 100px;
+    min-height: 100px; }
+
+@media print {
+    .btn-hint, .btn-answer {
+        display: none; }
+    .answer, .hint, .edit, .report-a-bug {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden; }
+    .directive-region {
+        page-break-inside: avoid; } }
+
 </style>
 <style type="text/css">
-  
+  .gap, .quiz-answer {
+    position: relative;
+}
 .quiz-answer-text, .quiz-display-text {
     display: inline-block;
 }
@@ -556,6 +717,115 @@ GAP
 
 .gap-answer {
     display: none;
+}
+
+/* button
+from
+ */
+
+.quiz-question-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    padding: 0 16px;
+    min-width: 64px;
+    height: 36px;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.quiz-question-button::-moz-focus-inner {
+    border: none;
+}
+
+/* Overlay */
+
+.quiz-question-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Ripple */
+.quiz-question-button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    padding: 50%;
+    width: 32px; /* Safari */
+    height: 32px; /* Safari */
+    background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 1s, transform 0.5s;
+}
+
+/* Hover, Focus */
+.quiz-question-button:hover,
+.quiz-question-button:focus {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.quiz-question-button:hover::before {
+    opacity: 0.08;
+}
+
+.quiz-question-button:focus::before {
+    opacity: 0.24;
+}
+
+.quiz-question-button:hover:focus::before {
+    opacity: 0.3;
+}
+
+/* Active */
+.quiz-question-button:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.quiz-question-button:active::after {
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0s;
+}
+
+/* Disabled */
+.quiz-question-button:disabled {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.12);
+    box-shadow: none;
+    cursor: initial;
+}
+
+.quiz-question-button:disabled::before {
+    opacity: 0;
+}
+
+.quiz-question-button:disabled::after {
+    opacity: 0;
 }
 
 </style>
@@ -746,7 +1016,6 @@ egentlige lokale maxima.
 
 }
 
-export default QuizQuestion;
 
 </script>
 </head>
@@ -976,8 +1245,8 @@ answer::wrong[display text2,answer text2]</code></pre>
 </ol>
 </div>
             <p style="margin-bottom: 25px">
-              <button onclick="QuizQuestion.resolve(5)">resolve</button>
-              <button onclick="QuizQuestion.reset(5)">reset</button>
+              <button onclick="QuizQuestion.resolve(5)" class="quiz-question-button quiz-question-resolve-button">Resolve</button>
+              <button onclick="QuizQuestion.reset(5)" class="quiz-question-button quiz-question-reset-button">Reset</button>
             </p>
 </div>
 </div>
@@ -1029,8 +1298,8 @@ answer::wrong[display text2,answer text2]</code></pre>
 </ol>
 </div>
             <p style="margin-bottom: 25px">
-              <button onclick="QuizQuestion.resolve(6)">resolve</button>
-              <button onclick="QuizQuestion.reset(6)">reset</button>
+              <button onclick="QuizQuestion.resolve(6)" class="quiz-question-button quiz-question-resolve-button">Resolve</button>
+              <button onclick="QuizQuestion.reset(6)" class="quiz-question-button quiz-question-reset-button">Reset</button>
             </p>
 </div>
 </div>
@@ -1053,8 +1322,8 @@ labore et dolore magna aliquyam erat,
 sed diam voluptua.</p>
 </div>
             <p style="margin-bottom: 25px">
-              <button onclick="QuizQuestion.resolve(7)">resolve</button>
-              <button onclick="QuizQuestion.reset(7)">reset</button>
+              <button onclick="QuizQuestion.resolve(7)" class="quiz-question-button quiz-question-resolve-button">Resolve</button>
+              <button onclick="QuizQuestion.reset(7)" class="quiz-question-button quiz-question-reset-button">Reset</button>
             </p>
 </div>
 </div>

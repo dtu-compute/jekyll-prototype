@@ -29,8 +29,8 @@ module Asciidoctor
           id = tag[:id]
           parent.blocks.push Asciidoctor::Block.new parent, :pass, :source => "
             <p style=\"margin-bottom: 25px\">
-              <button onclick='QuizQuestion.resolve(#{id})'>resolve</button>
-              <button onclick='QuizQuestion.reset(#{id})'>reset</button>
+              <button onclick='QuizQuestion.resolve(#{id})' class=\"quiz-question-button quiz-question-resolve-button\">Resolve</button>
+              <button onclick='QuizQuestion.reset(#{id})' class=\"quiz-question-button quiz-question-reset-button\">Reset</button>
             </p>"
           parent
         end
