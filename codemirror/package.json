@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "asciidoctor": "^2.0.3",
-    "codemirror": "^5.47.0",
+    "codemirror": "^5.58.2",
     "codemirror-asciidoc": "^1.0.4",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6"
