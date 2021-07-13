@@ -3,6 +3,7 @@ PATH
   specs:
     asciidoctor-dtu-enote (0.0.1)
       asciidoctor (~> 1.5)
+      asciidoctor-question
       awesome_print (~> 1.8)
       pry (~> 0.12.2)
 
@@ -14,11 +15,14 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.6.0)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     asciidoctor (1.5.8)
     asciidoctor-interdoc-reftext (0.5.0)
       asciidoctor (>= 1.5.6, < 3.0)
+    asciidoctor-question (0.5.2)
+      asciidoctor (~> 1.5)
+      nokogiri (~> 1.6)
     awesome_print (1.8.0)
     coderay (1.1.2)
     colorator (1.1.0)
@@ -83,7 +87,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    public_suffix (3.0.3)
+    public_suffix (4.0.6)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
